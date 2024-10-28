@@ -17,17 +17,17 @@ public:
 };
 class Vec4 {
 	public:
-	float x,y,z;
+	int x,y,z;
 	int a;
-	Vec4(float _x,float _y,float _z,int _a) : x(_x),y(_y),z(_z),a(_a)
+	Vec4(int _x,int _y,int _z,int _a) : x(_x),y(_y),z(_z),a(_a)
 	{}
 	Vec4(Vec3* v,int _a) : x(v->x),y(v->y),z(v->z),a(_a)
 	{}
 	Vec4()
 	{}
-	void setX (float n){x=n;}
-	void setY (float n){y=n;}
-	void setZ (float n){z=n;}
+	void setX (int n){x=n;}
+	void setY (int n){y=n;}
+	void setZ (int n){z=n;}
 	void setA (int n){a=n;}
 };
 //Header classes

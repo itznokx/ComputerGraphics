@@ -1,6 +1,6 @@
 #include <iostream>
 #include <SDL2/SDL.h>
-#include "Vector.hpp"
+#include "vector.hpp"
 
 class WindowSDL {
 	public:	
@@ -26,7 +26,7 @@ class WindowSDL {
 			}
 		}
 	}
-	void renderScene(Vec4* colorMatrix,int height, int width){
+	void renderScene(Vec4** colorMatrix,int height, int width){
 		bool isRunning = true;
 		SDL_Event event;
 		while (isRunning){
@@ -38,18 +38,21 @@ class WindowSDL {
 			}
 			for (int lines = 0; lines < height;lines++){
 				for (int collumns = 0; collumns < width;collumns++){
-					SDL_SetRenderDrawColor(this->renderer,colorMatrix->x,colorMatrix->y,colorMatrix->z,colorMatrix->a);
+					SDL_SetRenderDrawColor(this->renderer,colorMatrix[l][c].x,colorMatrix[l][c].y,colorMatrix[l][c].z,colorMatrix[l][c].a);
 					SDL_RenderDrawPoint(renderer,lines,collumns);
 				}
 			}
 		}
 	}
 	void cleanSDLBuffer(){
-	 SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+	 	SDL_DestroyRenderer(renderer);
+   		SDL_DestroyWindow(window);
+    	SDL_Quit();
+    	delete(window);
+    	delete(renderer);
 	}
 	private:
+	
 	~WindowSDL(){}
 	int initializeSDL (){
 		if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_EVENTS) <0) {
