@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <cmath>
 
@@ -29,3 +30,39 @@ class Vec4 {
 	void setZ (float n){z=n;}
 	void setA (int n){a=n;}
 };
+//Header classes
+float dot(Vec3*,Vec3*); //ok
+float dot(Vec3 ,Vec3 ); //ok
+Vec3 normalize(Vec3*); //ok
+Vec3 normalize(Vec3 ); //ok
+Vec3 operator+(Vec3,Vec3); // ok
+Vec3 operator-(Vec3,Vec3);  // ok
+Vec3 operator*(Vec3,float);  // ok
+Vec3 operator*(Vec3,Vec3);  // ok
+// Implementation 
+float dot (Vec3* a,Vec3* b){
+	return (a->x*b->x+a->y*b->y+a->z*b->z);
+}
+float dot (Vec3 a,Vec3 b){
+	return (a.x*b.x+a.y*b.y+a.z*b.z);
+}
+Vec3 normalize (Vec3* a) {
+	float norm = sqrt(dot(a,a));
+	return Vec3((a->x/norm),(a->y/norm),(a->z/norm)); 
+}
+Vec3 normalize (Vec3 a) {
+	float norm = sqrt(dot(a,a));
+	return Vec3((a.x/norm),(a.y/norm),(a.z/norm)); 
+}
+Vec3 operator*(Vec3 a,Vec3 b){
+	return Vec3(a.x*b.x,a.y*b.y,a.z*b.z);
+}
+Vec3 operator*(Vec3 a,float b){
+	return Vec3(a.x*b,a.y*b,a.z*b);	
+}
+Vec3 operator-(Vec3 a,Vec3 b){
+	return Vec3(a.x-b.x,a.y-b.y,a.z-b.z); 
+}
+Vec3 operator+(Vec3 a,Vec3 b){
+	return Vec3(a.x+b.x,a.y+b.y,a.z+b.z);
+}
