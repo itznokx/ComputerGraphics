@@ -1,17 +1,20 @@
 #include <iostream>
 #include <SDL2/SDL.h>
-#include "vector.hpp"
+#include "raycasting.hpp"
 
 class WindowSDL {
-	public:	
-	WindowSDL(int width, int height){
+	public:
+	int wCanvas,hCanvas;
+	WindowSDL(int wCanvas, int hCanvas) : wCanvas(wCanvas),
+										  hCanvas(hCanvas)
+		{
 		initializeSDL();
 		this->window = SDL_CreateWindow(
 				"CG WORK",
 				SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED,
-				width,
-				height,
+				wCanvas,
+				hCanvas,
 				SDL_WINDOW_SHOWN);
 		if (!window){
 			SDL_Log("Window Creation failed.\nSDL_ERROR: %s", SDL_GetError());
@@ -26,7 +29,7 @@ class WindowSDL {
 			}
 		}
 	}
-	void renderScene(Vec4** colorMatrix,int height, int width){
+	void renderScene(Vec4** colorMatrix){
 		bool isRunning = true;
 		SDL_Event event;
 		while (isRunning){
@@ -36,10 +39,10 @@ class WindowSDL {
 					cleanSDLBuffer();
 				}
 			}
-			for (int lines = 0; lines < height;lines++){
-				for (int collumns = 0; collumns < width;collumns++){
+			for (int l = 0; l < this->hCanvas;l++){
+				for (int c = 0; c < this->wCanvas;c++){
 					SDL_SetRenderDrawColor(this->renderer,colorMatrix[l][c].x,colorMatrix[l][c].y,colorMatrix[l][c].z,colorMatrix[l][c].a);
-					SDL_RenderDrawPoint(renderer,lines,collumns);
+					SDL_RenderDrawPoint(renderer,l,c);
 				}
 			}
 		}
@@ -48,12 +51,10 @@ class WindowSDL {
 	 	SDL_DestroyRenderer(renderer);
    		SDL_DestroyWindow(window);
     	SDL_Quit();
-    	delete(window);
-    	delete(renderer);
 	}
-	private:
 	
-	~WindowSDL(){}
+	
+	private:
 	int initializeSDL (){
 		if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_EVENTS) <0) {
 			std::cout << "Error SDL Initialization: " << SDL_GetError();
