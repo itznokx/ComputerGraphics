@@ -22,12 +22,13 @@ class WindowSDL {
 			return;
 		}
 		else{
+			std::cout << "Window created\n";
 			initializeRenderer();
 			if (!renderer){
 				SDL_Log("Renderer Creation failed.\nSDL_ERROR: %s", SDL_GetError());
 				SDL_Quit();
 			}
-		}
+			std::cout << "Renderer created created\n";		}
 	}
 	void renderScene(Vec4** colorMatrix){
 		bool isRunning = true;
@@ -45,6 +46,7 @@ class WindowSDL {
 					SDL_RenderDrawPoint(renderer,l,c);
 				}
 			}
+			SDL_RenderPresent(renderer);
 		}
 	}
 	void cleanSDLBuffer(){
