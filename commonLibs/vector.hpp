@@ -41,8 +41,14 @@ Vec3 normalize(Vec3 ); //ok
 Vec3 operator+(Vec3,Vec3); // ok
 Vec3 operator-(Vec3,Vec3);  // ok
 Vec3 operator*(Vec3,float);  // ok
-Vec3 operator*(Vec3,Vec3);  // ok
+Vec3 operator*(float,Vec3);  // ok
 Vec3 cross(Vec3,Vec3);
+/*Vec4 operations*/
+
+Vec4 operator*(Vec4,float);
+Vec4 operator+(Vec4,Vec4);
+//operador arroba
+Vec4 ats (Vec4,Vec4);
 // Implementation 
 float dot (Vec3* a,Vec3* b){
 	return (a->x*b->x+a->y*b->y+a->z*b->z);
@@ -61,9 +67,6 @@ Vec3 normalize (Vec3 a) {
 Vec3 operator*(Vec3 a,Vec3 b){
 	return Vec3(a.x*b.x,a.y*b.y,a.z*b.z);
 }
-Vec3 operator*(Vec3 a,float b){
-	return Vec3(a.x*b,a.y*b,a.z*b);	
-}
 Vec3 operator-(Vec3 a,Vec3 b){
 	return Vec3(a.x-b.x,a.y-b.y,a.z-b.z); 
 }
@@ -75,4 +78,10 @@ Vec3 cross (Vec3 a,Vec3 b){
 	float y = (a.z*b.x - a.x*b.z);
 	float z = (a.x*b.y - a.y*b.x);
 	return Vec3(x,y,z);
+}
+Vec4 ats(Vec4 a,Vec4 b){
+	return Vec4(a.x*b.x,a.y*b.y,a.z*b.z,a.a*b.a);
+}
+Vec4 operator* (Vec4 v,float n){
+	return Vec4(v.x*n,v.y*n,v.z*n,v.a*n);
 }

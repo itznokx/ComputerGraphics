@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <algorithm>
 #include "ray.hpp"
@@ -19,11 +20,30 @@ float Object::intersects(Ray* ray){
 //Sphere
 class Sphere : public Object{
 public:
-	Vec4 color;
+	Vec4 colorAmb;
+	Vec4 colorDif;
+	Vec4 colorEsp;
 	string type;
 	Vec3 center;
+	float m;
 	float r;
-	Sphere(Vec3 _center,float _r,Vec4 _color) : color(_color),type("Sphere"),center(_center), r(_r)  
+	Sphere(Vec3 _center,float _r,Vec4 _colorDif,Vec4 _colorEsp,Vec4 _colorAmb,float _m) : 
+												colorAmb(_colorAmb),
+												colorDif(_colorDif),
+												colorEsp(_colorEsp),
+												type("Sphere"),
+												center(_center), 
+												m(_m),
+												r(_r)
+	{}
+	Sphere(Vec3 _center,float _r,Vec4 color,float _m) : 
+												colorAmb(color),
+												colorDif(color),
+												colorEsp(color),
+												type("Sphere"),
+												center(_center), 
+												m(_m),
+												r(_r)
 	{}
 	float intersects(Ray* ray){
 		Vec3 v = ray->Origin - this->center;
@@ -51,6 +71,18 @@ public:
 
 		}
 	}
+	Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb){
+		Vec3 pI = (ray->Origin + (ray->dr*ti));
+		Vec3 v = ray->dr*(-1.0f);
+		Vec3 l = normalize(lp->pF - pI);
+		Vec3 n = normalize(this->center - pI);
+		Vec3 r = normalize(2.0f*((dot(l,n))*n - l));
+		Vec4 c1 = ats(this->colorAmb,amb->intensity);
+		Vec4 c2 = ats(this->colorDif,lp->intensity)*dot(l,n);
+		Vec4 c3 = ats(this->colorEsp,lp->intensity)*pow(dot(v,r),this->m);
+		return c1+c2+c3;
+
+	}
 };
 class Plane : public Object{
 	Vec3 anchorPoint;
@@ -63,6 +95,8 @@ class Plane : public Object{
 		this->normal = normalize(w); 
 	}
 	float intersects(Ray* ray){
-		return -1.0f;
+		Vec3 v = ray->Origin - this->anchorPoint;
+		float ti = (dot(v,this->normal)*(-1))/(dot(ray->dr,this->normal));
+		return ti;
 	}
 };
