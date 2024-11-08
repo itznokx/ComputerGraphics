@@ -1,5 +1,7 @@
 #include <iostream>
+#include <algorithm>
 #include "ray.hpp"
+#include "light.hpp"
 using namespace std; 
 
 class Object {
@@ -21,14 +23,46 @@ public:
 	string type;
 	Vec3 center;
 	float r;
-	Sphere(Vec3 _center,float _r,Vec4 _color) : type("Sphere"), r(_r), center(_center), color(_color)
+	Sphere(Vec3 _center,float _r,Vec4 _color) : color(_color),type("Sphere"),center(_center), r(_r)  
 	{}
 	float intersects(Ray* ray){
-		Vec3 v = Vec3(ray->Origin.x,ray->Origin.y,ray->Origin.z) - this->center;
+		Vec3 v = ray->Origin - this->center;
 		float a = dot(ray->dr,ray->dr);
-		float b = 2*(dot(v,ray->dr));
+		float b = 2.0f*(dot(v,ray->dr));
 		float c = (dot(v,v)) - pow(this->r,2);
-		float delta = pow(b,2) - 4*a*c;
-		return delta;
+		float delta = b*b - 4.0f*a*c;
+
+		if (delta < 0){
+				return -1.0f;
+		}
+		else{
+			float t2 = -1*(-b-sqrt(delta))/(2.0f*a);
+			cout << t2 << " ";
+			return t2;
+			/*else {
+				float t1= (-b+sqrt(delta))/(2*a);
+				if ((t1>=0)&&(t2>=0)){
+					return min(t1,t2); 
+				}
+				else{
+					return max(t1,t2);
+				}
+			}*/
+
+		}
+	}
+};
+class Plane : public Object{
+	Vec3 anchorPoint;
+	Vec3 normal;
+	Vec4 color;
+	string type;
+	Plane (Vec3 nP,Vec3 _normal,Vec4 _color):anchorPoint(nP),normal(_normal),color(_color),type("Plane"){}
+	Plane (Vec3 p1,Vec3 p2,Vec3 p3,Vec4 _color):color(_color),type("Plane"){
+		Vec3 w = cross((p2-p1),(p3-p1));
+		this->normal = normalize(w); 
+	}
+	float intersects(Ray* ray){
+		return -1.0f;
 	}
 };
