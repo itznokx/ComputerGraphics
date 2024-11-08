@@ -13,7 +13,9 @@ public:
 	void setX (float n){x=n;}
 	void setY (float n){y=n;}
 	void setZ (float n){z=n;}
-
+	void print (){
+		cout <<"("<<this->x<<","<<this->y<<","<<this->z<<")";
+	}
 };
 class Vec4 {
 	public:
@@ -29,6 +31,7 @@ class Vec4 {
 	void setY (int n){y=n;}
 	void setZ (int n){z=n;}
 	void setA (int n){a=n;}
+
 };
 //Header classes
 float dot(Vec3*,Vec3*); //ok
@@ -39,6 +42,7 @@ Vec3 operator+(Vec3,Vec3); // ok
 Vec3 operator-(Vec3,Vec3);  // ok
 Vec3 operator*(Vec3,float);  // ok
 Vec3 operator*(Vec3,Vec3);  // ok
+Vec3 cross(Vec3,Vec3);
 // Implementation 
 float dot (Vec3* a,Vec3* b){
 	return (a->x*b->x+a->y*b->y+a->z*b->z);
@@ -65,4 +69,10 @@ Vec3 operator-(Vec3 a,Vec3 b){
 }
 Vec3 operator+(Vec3 a,Vec3 b){
 	return Vec3(a.x+b.x,a.y+b.y,a.z+b.z);
+}
+Vec3 cross (Vec3 a,Vec3 b){
+	float x = (a.y*b.z - a.z*b.y);
+	float y = (a.z*b.x - a.x*b.z);
+	float z = (a.x*b.y - a.y*b.x);
+	return Vec3(x,y,z);
 }
