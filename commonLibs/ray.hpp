@@ -10,8 +10,8 @@ public:
 	Vec3 dr;
 	Ray(Vec3 _Origin,Vec3 _dr) : Origin(_Origin)
 	{
-		Vec3 aux = (_dr) - (_Origin);
-		aux = (normalize(aux));
-		this->dr = aux;
+		this->dr = (normalize(_dr));
+		if (dr.z > 0)
+			dr.print();
 	}
 };
