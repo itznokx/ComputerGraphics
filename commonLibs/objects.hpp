@@ -21,8 +21,11 @@ float Object::intersects(Ray* ray){
 	return -404.404f;
 }
 Vec4 Object::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
+	float dotti = dot(ray->Origin,lp->pF);
+	float dotaux = dot(amb->pF,ray->Origin);
+	float aux = ti*dotti*dotaux;
 	cout << "Color objs" << "\n";
-	return Vec4(0.0f,0.0f,0.0f,1.0f);
+	return Vec4(0.0f*aux,0.0f,0.0f,1.0f);
 }
 //Sphere
 class Sphere : public Object{
@@ -44,9 +47,9 @@ public:
 												r(_r)
 	{}
 	Sphere(Vec3 _center,float _r,Vec4 color,float _m) : 
-												colorAmb(color),
-												colorDif(color),
-												colorEsp(color),
+												colorAmb(normalize(color)),
+												colorDif(normalize(color)),
+												colorEsp(normalize(color)),
 												type("Sphere"),
 												center(_center), 
 												m(_m),
@@ -71,14 +74,15 @@ float Sphere::intersects(Ray* ray){
 	}
 Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
 		Vec3 pI = (ray->Origin + (ray->dr*ti));
-		Vec3 v = ray->dr*(-1.0f);
+		Vec3 v = (ray->Origin - pI);
 		Vec3 l = normalize(lp->pF - pI);
 		Vec3 n = normalize(this->center - pI);
 		Vec3 r = normalize(2.0f*((dot(l,n))*n - l));
-		Vec4 c1 = ats(this->colorAmb,amb->intensity);
-		Vec4 c2 = ats(this->colorDif,lp->intensity)*dot(l,n);
-		Vec4 c3 = ats(this->colorEsp,lp->intensity)*pow(dot(v,r),this->m);
-		return c1+c2+c3;
+		Vec4 c1 = (ats(this->colorAmb,amb->intensity));
+		cout << "FD: "<<dot(l,n) << " "<< "FE: " << pow(dot(v,r),this->m) << endl;
+		Vec4 c2 = (ats(this->colorDif,lp->intensity)*dot(l,n));
+		Vec4 c3 = (ats(this->colorEsp,lp->intensity)*pow(dot(v,r),this->m));
+		return (c1+c2+c3);
 
 	}
 //Plane

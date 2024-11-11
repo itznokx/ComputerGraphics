@@ -19,18 +19,18 @@ public:
 };
 class Vec4 {
 	public:
-	int x,y,z;
-	int a;
-	Vec4(int _x,int _y,int _z,int _a) : x(_x),y(_y),z(_z),a(_a)
+	float x,y,z;
+	float a;
+	Vec4(float _x,float _y,float _z,float _a) : x(_x),y(_y),z(_z),a(_a)
 	{}
-	Vec4(Vec3* v,int _a) : x(v->x),y(v->y),z(v->z),a(_a)
+	Vec4(Vec3* v,float _a) : x(v->x),y(v->y),z(v->z),a(_a)
 	{}
 	Vec4()
 	{}
-	void setX (int n){x=n;}
-	void setY (int n){y=n;}
-	void setZ (int n){z=n;}
-	void setA (int n){a=n;}
+	void setX (float n){x=n;}
+	void setY (float n){y=n;}
+	void setZ (float n){z=n;}
+	void setA (float n){a=n;}
 
 };
 //Header classes
@@ -45,8 +45,12 @@ Vec3 operator*(float,Vec3);  // ok
 Vec3 cross(Vec3,Vec3);
 /*Vec4 operations*/
 
-Vec4 operator*(Vec4,float);
-Vec4 operator+(Vec4,Vec4);
+Vec4 operator*(Vec4,float); //ok
+Vec4 operator+(Vec4,Vec4); //ok
+float dot(Vec4,Vec4);
+float dot(Vec4*,Vec4*);
+Vec4 normalize(Vec4);
+Vec4 normalize(Vec4*);
 //operador arroba
 Vec4 ats (Vec4,Vec4);
 // Implementation 
@@ -93,4 +97,18 @@ Vec4 operator* (Vec4 v,float n){
 }
 Vec4 operator+ (Vec4 v,Vec4 w){
 	return Vec4(v.x+w.x,v.y+w.y,v.z+w.z,v.a+w.a);
+}
+float dot (Vec4* a,Vec4* b){
+	return (a->x*b->x+a->y*b->y+a->z*b->z+a->a*b->a);
+}
+float dot (Vec4 a,Vec4 b){
+	return (a.x*b.x+a.y*b.y+a.z*b.z+a.a*b.a);
+}
+Vec4 normalize (Vec4 a) {
+	float norm = sqrt(dot(a,a));
+	return Vec4((a.x/norm),(a.y/norm),(a.z/norm),(a.a/norm)); 
+}
+Vec4 normalize (Vec4* a) {
+	float norm = sqrt(dot(a,a));
+	return Vec4((a->x/norm),(a->y/norm),(a->z/norm),(a->a/norm)); 
 }

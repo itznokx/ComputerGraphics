@@ -20,7 +20,7 @@ class Scene {
 		Scene(int n){
 			this->objs.reserve(n);
 			this->lights.reserve(n);
-			Vec4(0.0f,0.0f,0.0f,0.0f);
+			this->bgColor = Vec4(0.0f,0.0f,0.0f,0.0f);
 		}
 		~Scene(){
 			this->objs.clear();
@@ -39,12 +39,11 @@ class Scene {
 			int index = 0; 
 			float tiMin,tiAux;
 			bool find = false;
-			for (int i=0;i<this->objs.size();i++){
+			for (int i=0;i<objs.size();i++){
 				tiAux = this->objs[i]->intersects(ray);
 				if(tiAux >= 0.0f){
 					find = true;
 					if(tiAux < tiMin){
-						cout << "new ti min" << endl;
 						tiMin = tiAux;
 						index = i;
 					}
