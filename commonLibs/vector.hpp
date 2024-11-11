@@ -67,6 +67,12 @@ Vec3 normalize (Vec3 a) {
 Vec3 operator*(Vec3 a,Vec3 b){
 	return Vec3(a.x*b.x,a.y*b.y,a.z*b.z);
 }
+Vec3 operator*(float n,Vec3 v){
+	return Vec3(v.x*n,v.y*n,v.z*n);
+}
+Vec3 operator*(Vec3 v,float n){
+	return Vec3(v.x*n,v.y*n,v.z*n);
+}
 Vec3 operator-(Vec3 a,Vec3 b){
 	return Vec3(a.x-b.x,a.y-b.y,a.z-b.z); 
 }
@@ -84,4 +90,7 @@ Vec4 ats(Vec4 a,Vec4 b){
 }
 Vec4 operator* (Vec4 v,float n){
 	return Vec4(v.x*n,v.y*n,v.z*n,v.a*n);
+}
+Vec4 operator+ (Vec4 v,Vec4 w){
+	return Vec4(v.x+w.x,v.y+w.y,v.z+w.z,v.a+w.a);
 }
