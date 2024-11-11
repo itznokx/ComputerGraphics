@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <algorithm>
+#include "vector.hpp"
 #include "ray.hpp"
 #include "light.hpp"
 using namespace std; 
@@ -13,9 +14,13 @@ public:
 		this->color = Vec4(r,g,b,a);
 	}
 	virtual float intersects(Ray* ray);
+	virtual Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb);
 };
 float Object::intersects(Ray* ray){
 	return -404.404f;
+}
+Vec4 Object::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
+	return Vec4(0.0f,0.0f,0.0f,1.0f);
 }
 //Sphere
 class Sphere : public Object{
