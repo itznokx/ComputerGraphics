@@ -8,10 +8,10 @@ int main (void){
 	float rSphere = 5.0f;
 	float dJanela = 5.0f;
 	Scene cena;
-	Sphere s1 = Sphere(Vec3(0,0,-(10.0f+dJanela+rSphere)),rSphere,Vec4(255.0f,0.0f,0.0f,255.0f),1.0f);
+	Sphere s1 = Sphere(Vec3(0,0,-(5.0f+dJanela+rSphere)),rSphere,Vec4(255.0f,0.0f,0.0f,255.0f),1.0f);
 	//Sphere s2 = Sphere(Vec3(20,0,-(dJanela+rSphere)),rSphere,Vec4(0,255,0,255),1.0f);
 	//Sphere s3 = Sphere(Vec3(-20,0,-(dJanela+rSphere)),rSphere,Vec4(0,0,255,255),1.0f);
-	Light l1 = Light(Vec3(0.0f,5.0f,0.0f),Vec4(179,179,179,255));
+	Light l1 = Light(Vec3(0.0f,20.0f,0.0f),Vec4(179,179,179,255));
 	cena.insertLight(&l1);
 	cena.setAmbientLight(Vec4(76,76,76,255));
 	std::cout << "Sphere created\n";
