@@ -36,14 +36,15 @@ class Scene {
 			this->lights.push_back(li);
 		}
 		Vec4 returnColorScene (Ray* ray){
-			unsigned long int index; 
+			int index = 0; 
 			float tiMin,tiAux;
 			bool find = false;
-			for (unsigned long int i=0;i<this->objs.size();i++){
+			for (int i=0;i<this->objs.size();i++){
 				tiAux = this->objs[i]->intersects(ray);
 				if(tiAux >= 0.0f){
 					find = true;
 					if(tiAux < tiMin){
+						cout << "new ti min" << endl;
 						tiMin = tiAux;
 						index = i;
 					}

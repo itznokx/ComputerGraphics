@@ -66,12 +66,10 @@ float Sphere::intersects(Ray* ray){
 		}
 		else{
 			float t2 = (-b-sqrt(delta))/(2.0f*a);
-			cout << t2 << endl;
 			return t2;
 		}
 	}
 Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
-		cout << "Color sphere" << "\n";
 		Vec3 pI = (ray->Origin + (ray->dr*ti));
 		Vec3 v = ray->dr*(-1.0f);
 		Vec3 l = normalize(lp->pF - pI);
@@ -83,6 +81,7 @@ Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
 		return c1+c2+c3;
 
 	}
+//Plane
 class Plane : public Object{
 	Vec3 anchorPoint;
 	Vec3 normal;
