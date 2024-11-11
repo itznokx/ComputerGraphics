@@ -12,9 +12,9 @@ int main (void){
 	Sphere s2 = Sphere(Vec3(20,0,(20.0f+rSphere)),rSphere,Vec4(0,255,0,255),1.0f);
 	Sphere s3 = Sphere(Vec3(-20,0,(20.0f+rSphere)),rSphere,Vec4(0,0,255,255),1.0f);
 	std::cout << "Sphere created\n";
-	cena.insert(&s1);
-	cena.insert(&s2);
-	cena.insert(&s3);
+	cena.insertObj(&s1);
+	cena.insertObj(&s2);
+	cena.insertObj(&s3);
 	WindowSDL janela = WindowSDL(500,500);
 	Vec4** matrix = colorMatrix(s1,5.0f,5.0f,
 								500,500,dJanela);
