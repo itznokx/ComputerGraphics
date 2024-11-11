@@ -33,7 +33,6 @@ class Scene {
 			this->lights.push_back(li);
 		}
 		Vec4 returnColorScene (Ray* ray){
-			cout << "ColorScene" << "\n";
 			 Object *aux;
 			 float tiMin,tiAux;
 			 bool find = false;
@@ -42,7 +41,6 @@ class Scene {
 				if(tiAux >= 0.0f){
 					find = true;
 					if(tiAux < tiMin){
-						cout << tiAux << "\n";
 						tiMin = tiAux;
 						aux = objs[i];
 					}

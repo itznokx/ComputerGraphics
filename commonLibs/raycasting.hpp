@@ -17,6 +17,7 @@ Vec4** colorMatrix (Scene s1,float wJanela,float hJanela,int wCanvas,int hCanvas
 			float xP = -(wJanela/2) + (deltaX/2) + (col*deltaX);
 			Ray* auxRay = new Ray(observer,Vec3(xP,yP,zP)-observer);
 			matrixFinal[lin][col] = s1.returnColorScene(auxRay);
+			delete(auxRay);
 		}
 	}
 	return matrixFinal;

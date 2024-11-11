@@ -20,6 +20,7 @@ float Object::intersects(Ray* ray){
 	return -404.404f;
 }
 Vec4 Object::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
+	cout << "Color objs" << "\n";
 	return Vec4(0.0f,0.0f,0.0f,1.0f);
 }
 //Sphere
@@ -77,6 +78,7 @@ public:
 		}
 	}
 	Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb){
+		cout << "Color sphere" << "\n";
 		Vec3 pI = (ray->Origin + (ray->dr*ti));
 		Vec3 v = ray->dr*(-1.0f);
 		Vec3 l = normalize(lp->pF - pI);
