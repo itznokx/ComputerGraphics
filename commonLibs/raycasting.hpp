@@ -1,6 +1,6 @@
 #include <iostream>
-#include "objects.hpp"
-Vec4** colorMatrix (Sphere sphere,float wJanela,float hJanela,int wCanvas,int hCanvas,float d){
+#include "scene.hpp"
+Vec4** colorMatrix (Scene s1,float wJanela,float hJanela,int wCanvas,int hCanvas,float d){
 	//Initialize color vector (alloc lines)
 	Vec4** matrixFinal = new Vec4*[hCanvas];
 	// aloc collumns
@@ -16,14 +16,7 @@ Vec4** colorMatrix (Sphere sphere,float wJanela,float hJanela,int wCanvas,int hC
 		for (int col=0;col<wCanvas;col++){
 			float xP = -(wJanela/2) + (deltaX/2) + (col*deltaX);
 			Ray* auxRay = new Ray(observer,Vec3(xP,yP,zP)-observer);
-			float deltaInter = sphere.intersects(auxRay);
-			if (deltaInter != -1){
-				matrixFinal[lin][col] = Vec4(255,0,0,255);
-			}
-			else {
-				matrixFinal[lin][col] = Vec4(100,100,100,255);
-			}
-
+			matrixFinal[lin][col] = s1.returnColorScene(auxRay);
 		}
 	}
 	return matrixFinal;
