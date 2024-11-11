@@ -28,7 +28,7 @@ class WindowSDL {
 				SDL_Log("Renderer Creation failed.\nSDL_ERROR: %s", SDL_GetError());
 				SDL_Quit();
 			}
-			std::cout << "Renderer created created\n";		}
+			std::cout << "Renderer created\n";		}
 	}
 	void renderScene(Vec4** colorMatrix){
 		bool isRunning = true;

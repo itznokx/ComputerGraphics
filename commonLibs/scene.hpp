@@ -3,6 +3,7 @@
 #include <vector>
 #include "objects.hpp"
 #include "light.hpp"
+#include <memory>
 using namespace std;
 
 class Scene {
@@ -13,11 +14,13 @@ class Scene {
 	public:
 		Scene(){
 			this->objs.reserve(10);
-			this->lights.reserve(1);
+			this->lights.reserve(2);
+			this->bgColor = Vec4(0.0f,0.0f,0.0f,0.0f);
 		}
 		Scene(int n){
 			this->objs.reserve(n);
 			this->lights.reserve(n);
+			Vec4(0.0f,0.0f,0.0f,0.0f);
 		}
 		~Scene(){
 			this->objs.clear();
@@ -33,16 +36,16 @@ class Scene {
 			this->lights.push_back(li);
 		}
 		Vec4 returnColorScene (Ray* ray){
-			 Object *aux;
-			 float tiMin,tiAux;
-			 bool find = false;
-			for (int i=0;i<objs.size();i++){
-				tiAux = objs[i]->intersects(ray);
+			unsigned long int index; 
+			float tiMin,tiAux;
+			bool find = false;
+			for (unsigned long int i=0;i<this->objs.size();i++){
+				tiAux = this->objs[i]->intersects(ray);
 				if(tiAux >= 0.0f){
 					find = true;
 					if(tiAux < tiMin){
 						tiMin = tiAux;
-						aux = objs[i];
+						index = i;
 					}
 
 				}
@@ -51,7 +54,7 @@ class Scene {
 				return bgColor;
 			}
 			else{
-				return (aux->returnColor(tiMin,ray,lights[0],ambLight));
+				return (this->objs[index]->returnColor(tiMin,ray,lights[0],ambLight));
 			}
 
 		}

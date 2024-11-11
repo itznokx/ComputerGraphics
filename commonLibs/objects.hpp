@@ -17,6 +17,7 @@ public:
 	virtual Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb);
 };
 float Object::intersects(Ray* ray){
+	cout << "Obj intersects" << "\n";
 	return -404.404f;
 }
 Vec4 Object::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
@@ -51,33 +52,25 @@ public:
 												m(_m),
 												r(_r)
 	{}
-	float intersects(Ray* ray){
+	float intersects(Ray* ray);
+	Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb);
+};
+float Sphere::intersects(Ray* ray){
 		Vec3 v = ray->Origin - this->center;
 		float a = dot(ray->dr,ray->dr);
 		float b = 2.0f*(dot(v,ray->dr));
 		float c = (dot(v,v)) - pow(this->r,2);
 		float delta = b*b - 4.0f*a*c;
-
 		if (delta < 0){
 				return -1.0f;
 		}
 		else{
-			float t2 = -1*(-b-sqrt(delta))/(2.0f*a);
-			cout << t2 << " ";
+			float t2 = (-b-sqrt(delta))/(2.0f*a);
+			cout << t2 << endl;
 			return t2;
-			/*else {
-				float t1= (-b+sqrt(delta))/(2*a);
-				if ((t1>=0)&&(t2>=0)){
-					return min(t1,t2); 
-				}
-				else{
-					return max(t1,t2);
-				}
-			}*/
-
 		}
 	}
-	Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb){
+Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
 		cout << "Color sphere" << "\n";
 		Vec3 pI = (ray->Origin + (ray->dr*ti));
 		Vec3 v = ray->dr*(-1.0f);
@@ -90,7 +83,6 @@ public:
 		return c1+c2+c3;
 
 	}
-};
 class Plane : public Object{
 	Vec3 anchorPoint;
 	Vec3 normal;
