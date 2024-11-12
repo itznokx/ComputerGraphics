@@ -55,7 +55,7 @@ class Scene {
 				return bgColor;
 			}
 			else{
-				return (this->objs[index]->returnColor(tiMin,ray,lights[0],ambLight));
+				return (this->objs[index]->returnColor(tiMin,ray,lights[0],ambLight,this->objs));
 			}
 
 		}

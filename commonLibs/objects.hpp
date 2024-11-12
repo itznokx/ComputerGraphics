@@ -14,13 +14,13 @@ public:
 		this->color = Vec4(r,g,b,a);
 	}
 	virtual float intersects(Ray* ray);
-	virtual Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb);
+	virtual Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs);
 };
 float Object::intersects(Ray* ray){
 	cout << "Obj intersects" << "\n";
 	return -404.404f;
 }
-Vec4 Object::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
+Vec4 Object::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
 	float dotti = dot(ray->Origin,lp->pF);
 	float dotaux = dot(amb->pF,ray->Origin);
 	float aux = ti*dotti*dotaux;
@@ -56,7 +56,7 @@ public:
 												r(_r)
 	{}
 	float intersects(Ray* ray);
-	Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb);
+	Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs);
 };
 float Sphere::intersects(Ray* ray){
 		Vec3 v = ray->Origin - this->center;
@@ -72,20 +72,32 @@ float Sphere::intersects(Ray* ray){
 			return t2;
 		}
 	}
-Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
+Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
 	Vec3 pI = (ray->Origin - (ray->dr*ti));
+	Ray* rayAux = new Ray(lp->pF,pI);
+	/* TOFIX
+	for (int i=0;i<objs.size();i++){
+		float tiAux;
+		tiAux = objs[i]->intersects(ray);
+			if(tiAux >= 0.0f){
+				Vec4 iAmb = (ats(this->colorAmb,amb->intensity));
+				return iAmb;
+		}
+	}
+	*/
 	Vec3 v = normalize(ray->Origin-pI);
 	Vec3 l = normalize(lp->pF - pI);
 	Vec3 n = normalize(this->center-pI);
 	Vec3 r = ((2.0f*dot(n,l))*n - l);
 	float fd = dot(n,l);
 	float fe = pow(dot(r,v),this->m);
-	if (fd < 0){
+	if (fd < 0 && fe > 0){
 		Vec4 iAmb = (ats(this->colorAmb,amb->intensity))*255.0f;
+		Vec4 iEsp = (ats(this->colorEsp,lp->intensity)*fe)*255.0f;
 		cout <<"iAmb: ";iAmb.print();
-		return iAmb;
+		return (iAmb+iEsp);
 	}
-	if (fe < 0){
+	if (fe < 0 && fd > 0){
 		Vec4 iAmb = (ats(this->colorAmb,amb->intensity));
 		Vec4 iDif = (ats(this->colorDif,lp->intensity)*fd);
 		Vec4 final = (iAmb+iDif)*(255.0f);
@@ -95,16 +107,19 @@ Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
 				min(255.0f,final.a)
 				);
 	}
-
+	if (fe < 0 && fd < 0){
+		Vec4 iAmb = (ats(this->colorAmb,amb->intensity)*255.0f);
+		return iAmb;
+	}
 	// cout << "FD: "<< fd << " "<< "FE: " << fe << endl;
 	Vec4 iAmb = (ats(this->colorAmb,amb->intensity));
 	//cout <<"iAmb: ";iAmb.print();
 	Vec4 iDif = (ats(this->colorDif,lp->intensity)*fd);
 	//cout <<"iDif: ";iDif.print();
 	Vec4 iEsp = (ats(this->colorEsp,lp->intensity)*fe);
-	cout <<"iEsp: ";iEsp.print();
+	//cout <<"iEsp: ";iEsp.print();
 	Vec4 final = (iAmb+iDif+iEsp)*(255.0f);
-	// cout <<"final: ";final.print();
+	//cout <<"final: ";final.print();
 	return Vec4(min(255.0f,final.x),
 				min(255.0f,final.y),
 				min(255.0f,final.z),
@@ -128,4 +143,5 @@ class Plane : public Object{
 		float ti = (dot(v,this->normal)*(-1))/(dot(ray->dr,this->normal));
 		return ti;
 	}
+
 };
