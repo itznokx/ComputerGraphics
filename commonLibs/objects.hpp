@@ -77,7 +77,7 @@ Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
 	Vec3 v = normalize(ray->Origin-pI);
 	Vec3 l = normalize(lp->pF - pI);
 	Vec3 n = normalize(this->center-pI);
-	Vec3 r = normalize((2.0f*dot(n,l))*n - l);
+	Vec3 r = ((2.0f*dot(n,l))*n - l);
 	float fd = dot(n,l);
 	float fe = pow(dot(r,v),this->m);
 	if (fd < 0){
@@ -102,9 +102,9 @@ Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
 	Vec4 iDif = (ats(this->colorDif,lp->intensity)*fd);
 	//cout <<"iDif: ";iDif.print();
 	Vec4 iEsp = (ats(this->colorEsp,lp->intensity)*fe);
-	//cout <<"iEsp: ";iEsp.print();
+	cout <<"iEsp: ";iEsp.print();
 	Vec4 final = (iAmb+iDif+iEsp)*(255.0f);
-	cout <<"final: ";final.print();
+	// cout <<"final: ";final.print();
 	return Vec4(min(255.0f,final.x),
 				min(255.0f,final.y),
 				min(255.0f,final.z),
