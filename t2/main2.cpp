@@ -15,7 +15,7 @@ int main (void){
 	cena.setAmbientLight(Vec4(0.3f, 0.3f, 0.3f,1.0f));
 	std::cout << "Sphere created\n";
 	cena.insertObj(&s1);
-	cena.insertObj(&s2);
+	//cena.insertObj(&s2);
 	//cena.insertObj(&s3);
 	WindowSDL janela = WindowSDL(500,500);
 	Vec4** matrix = colorMatrix(cena,60.0f,60.0f,
