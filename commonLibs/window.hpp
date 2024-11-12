@@ -43,10 +43,10 @@ class WindowSDL {
 			for (int l = 0; l < this->hCanvas;l++){
 				for (int c = 0; c < this->wCanvas;c++){
 					SDL_SetRenderDrawColor(	this->renderer,
-											colorMatrix[l][c].x*255.0f,
-											colorMatrix[l][c].y*255.0f,
-											colorMatrix[l][c].z*255.0f,
-											colorMatrix[l][c].a*255.0f);
+											colorMatrix[l][c].x,
+											colorMatrix[l][c].y,
+											colorMatrix[l][c].z,
+											255.0f);
 					SDL_RenderDrawPoint(renderer,l,c);
 				}
 			}

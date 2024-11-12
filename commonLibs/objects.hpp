@@ -47,9 +47,9 @@ public:
 												r(_r)
 	{}
 	Sphere(Vec3 _center,float _r,Vec4 color,float _m) : 
-												colorAmb(normalize(color)),
-												colorDif(normalize(color)),
-												colorEsp(normalize(color)),
+												colorAmb(color),
+												colorDif(color),
+												colorEsp(color),
 												type("Sphere"),
 												center(_center), 
 												m(_m),
@@ -73,20 +73,43 @@ float Sphere::intersects(Ray* ray){
 		}
 	}
 Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb){
-		Vec3 pI = (ray->Origin + (ray->dr*ti));
-		Vec3 v = normalize(ray->Origin - pI);
-		Vec3 l = normalize(lp->pF - pI);
-		Vec3 n = normalize(this->center - pI);
-		Vec3 r = normalize(2.0f*((dot(l,n))*n - l));
-		float fd = dot(l,n);
-		float fe = pow(dot(v,r),this->m);
-		Vec4 c1 = (ats(this->colorAmb,amb->intensity));
-		cout << "FD: "<<fd << " "<< "FE: " << fe << endl;
-		Vec4 c2 = (ats(this->colorDif,lp->intensity)*fd);
-		if (fd < 0)
-			return c1;
-		Vec4 c3 = (ats(this->colorEsp,lp->intensity)*fe);
-		return (c1+c2+c3);
+	Vec3 pI = (ray->Origin - (ray->dr*ti));
+	Vec3 v = normalize(ray->Origin-pI);
+	Vec3 l = normalize(lp->pF - pI);
+	Vec3 n = normalize(this->center-pI);
+	Vec3 r = normalize((2.0f*dot(n,l))*n - l);
+	float fd = dot(n,l);
+	float fe = pow(dot(r,v),this->m);
+	if (fd < 0){
+		Vec4 iAmb = (ats(this->colorAmb,amb->intensity))*255.0f;
+		cout <<"iAmb: ";iAmb.print();
+		return iAmb;
+	}
+	if (fe < 0){
+		Vec4 iAmb = (ats(this->colorAmb,amb->intensity));
+		Vec4 iDif = (ats(this->colorDif,lp->intensity)*fd);
+		Vec4 final = (iAmb+iDif)*(255.0f);
+		return Vec4(min(255.0f,final.x),
+				min(255.0f,final.y),
+				min(255.0f,final.z),
+				min(255.0f,final.a)
+				);
+	}
+
+	// cout << "FD: "<< fd << " "<< "FE: " << fe << endl;
+	Vec4 iAmb = (ats(this->colorAmb,amb->intensity));
+	//cout <<"iAmb: ";iAmb.print();
+	Vec4 iDif = (ats(this->colorDif,lp->intensity)*fd);
+	//cout <<"iDif: ";iDif.print();
+	Vec4 iEsp = (ats(this->colorEsp,lp->intensity)*fe);
+	//cout <<"iEsp: ";iEsp.print();
+	Vec4 final = (iAmb+iDif+iEsp)*(255.0f);
+	cout <<"final: ";final.print();
+	return Vec4(min(255.0f,final.x),
+				min(255.0f,final.y),
+				min(255.0f,final.z),
+				min(255.0f,final.a)
+				);
 
 	}
 //Plane

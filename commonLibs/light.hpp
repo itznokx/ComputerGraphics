@@ -8,7 +8,7 @@ public:
 	Vec4 intensity;
 	string type;
 	Light(Vec3 _pF,Vec4 i) : pF(_pF),
-							intensity(normalize(i)),
+							intensity(i),
 							type("pontual") 
 	{}
 };

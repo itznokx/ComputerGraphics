@@ -14,7 +14,7 @@ public:
 	void setY (float n){y=n;}
 	void setZ (float n){z=n;}
 	void print (){
-		cout <<"("<<this->x<<","<<this->y<<","<<this->z<<")";
+		printf("(%f,%f,%f)",this->x,this->y,this->z);
 	}
 };
 class Vec4 {
@@ -31,7 +31,9 @@ class Vec4 {
 	void setY (float n){y=n;}
 	void setZ (float n){z=n;}
 	void setA (float n){a=n;}
-
+	void print (){
+		printf("(%f,%f,%f,%f)\n",this->x,this->y,this->z,this->a);
+	}
 };
 //Header classes
 float dot(Vec3*,Vec3*); //ok
@@ -98,17 +100,17 @@ Vec4 operator* (Vec4 v,float n){
 Vec4 operator+ (Vec4 v,Vec4 w){
 	return Vec4(v.x+w.x,v.y+w.y,v.z+w.z,v.a+w.a);
 }
-float dot (Vec4* a,Vec4* b){
-	return (a->x*b->x+a->y*b->y+a->z*b->z+a->a*b->a);
+float dot (Vec4* v,Vec4* b){
+	return (v->x*b->x+v->y*b->y+v->z*b->z+v->a*b->a);
 }
-float dot (Vec4 a,Vec4 b){
-	return (a.x*b.x+a.y*b.y+a.z*b.z+a.a*b.a);
+float dot (Vec4 v,Vec4 b){
+	return (v.x*b.x+v.y*b.y+v.z*b.z+v.a*b.a);
 }
-Vec4 normalize (Vec4 a) {
-	float norm = sqrt(dot(a,a));
-	return Vec4((a.x/norm),(a.y/norm),(a.z/norm),(a.a/norm)); 
+Vec4 normalize (Vec4 v) {
+	float norm = sqrt(dot(v,v));
+	return Vec4((v.x/norm),(v.y/norm),(v.z/norm),(v.a/norm)); 
 }
-Vec4 normalize (Vec4* a) {
-	float norm = sqrt(dot(a,a));
-	return Vec4((a->x/norm),(a->y/norm),(a->z/norm),(a->a/norm)); 
+Vec4 normalize (Vec4* v) {
+	float norm = sqrt(dot(v,v));
+	return Vec4((v->x/norm),(v->y/norm),(v->z/norm),(v->a/norm)); 
 }
