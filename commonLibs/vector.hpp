@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <cmath>
-
 using namespace std;
 class Vec3 {
 public:
@@ -92,7 +91,7 @@ Vec3 cross (Vec3 a,Vec3 b){
 	return Vec3(x,y,z);
 }
 Vec4 ats(Vec4 a,Vec4 b){
-	return Vec4(a.x*b.x,a.y*b.y,a.z*b.z,a.a*b.a);
+	return Vec4(a.x*b.x,a.y*b.y,a.z*b.z,255.0f);
 }
 Vec4 operator* (Vec4 v,float n){
 	return Vec4(v.x*n,v.y*n,v.z*n,v.a*n);

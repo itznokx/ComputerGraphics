@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include "vector.hpp"
-
 using namespace std;
 
 class Ray {

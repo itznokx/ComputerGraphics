@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "objects.hpp"
+#include "sphere.hpp"
+#include "plane.hpp"
 #include "light.hpp"
 #include <memory>
 using namespace std;
