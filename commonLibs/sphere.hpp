@@ -91,4 +91,4 @@ Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> 
 	//cout <<"final: ";final.print();
 	return final;
 
-	}
+}

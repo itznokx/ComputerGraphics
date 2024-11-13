@@ -26,10 +26,12 @@ public:
 		Vec3 w = cross((p2-p1),(p3-p1));
 		this->normal = normalize(w); 
 	}
-	float intersects(Ray* ray){
-		Vec3 v = ray->Origin - this->anchorPoint;
-		float ti = (dot(v,this->normal)*(-1))/(dot(ray->dr,this->normal));
-		return ti;
-	}
+	float intersects(Ray* ray);
+	Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs);
 
 };
+float Plane::intersects(Ray* ray){
+	Vec3 v = ray->Origin - this->anchorPoint;
+	float ti = (dot(v,this->normal)*(-1))/(dot(ray->dr,this->normal));
+	return ti;
+}
