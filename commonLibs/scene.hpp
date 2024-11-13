@@ -37,17 +37,18 @@ class Scene {
 			this->lights.push_back(li);
 		}
 		Vec4 returnColorScene (Ray* ray){
+			Object* o;
 			int index = 0; 
 			float tiAux;
 			float tiMin = 9999.99f;
 			bool find = false;
-			for (int i=0;i<objs.size();i++){
-				tiAux = this->objs[i]->intersects(ray);
+			for (Object *obj : this->objs){
+				tiAux = obj->intersects(ray);
 				if(tiAux >= 0.0f){
 					find = true;
 					if(tiAux < tiMin){
 						tiMin = tiAux;
-						index = i;
+						o = obj;
 					}
 
 				}
@@ -56,7 +57,7 @@ class Scene {
 				return bgColor;
 			}
 			else{
-				return (this->objs[index]->returnColor(tiMin,ray,lights[0],ambLight,this->objs));
+				return (o->returnColor(tiMin,ray,lights[0],ambLight,this->objs));
 			}
 
 		}
