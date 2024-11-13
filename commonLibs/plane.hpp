@@ -35,3 +35,6 @@ float Plane::intersects(Ray* ray){
 	float ti = (dot(v,this->normal)*(-1))/(dot(ray->dr,this->normal));
 	return ti;
 }
+Vec4 Plane::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
+	return Vec4(0.0f,0.0f,0.0f,1.0f)*255.0f;
+}

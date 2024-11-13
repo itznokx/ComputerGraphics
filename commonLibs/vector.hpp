@@ -13,7 +13,7 @@ public:
 	void setY (float n){y=n;}
 	void setZ (float n){z=n;}
 	void print (){
-		printf("(%f,%f,%f)",this->x,this->y,this->z);
+		printf("(%f,%f,%f)\n",this->x,this->y,this->z);
 	}
 };
 class Vec4 {

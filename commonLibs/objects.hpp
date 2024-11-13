@@ -16,6 +16,7 @@ public:
 	virtual float intersects(Ray* ray);
 	virtual Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs);
 };
+//Generic Implementation 
 float Object::intersects(Ray* ray){
 	cout << "Obj intersects" << "\n";
 	return -404.404f;
@@ -27,4 +28,3 @@ Vec4 Object::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> 
 	cout << "Color objs" << "\n";
 	return Vec4(0.0f*aux,0.0f,0.0f,1.0f);
 }
-

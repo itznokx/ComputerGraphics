@@ -35,7 +35,7 @@ float Sphere::intersects(Ray* ray){
 		Vec3 v = ray->Origin - this->center;
 		float a = dot(ray->dr,ray->dr);
 		float b = 2.0f*(dot(v,ray->dr));
-		float c = (dot(v,v)) - pow(this->r,2);
+		float c = (dot(v,v)) -  (this->r*this->r);
 		float delta = b*b - 4.0f*a*c;
 		if (delta < 0){
 				return -1.0f;
@@ -51,6 +51,7 @@ float Sphere::intersects(Ray* ray){
 	}
 Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
 	Vec3 pI = (ray->Origin - (ray->dr*ti));
+	cout <<"pI: ";pI.print();
 	Ray* rayAux = new Ray(pI,lp->pF-pI);
 	for (int i=0;i<objs.size();i++){
 		float tiAux;
@@ -61,17 +62,17 @@ Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> 
 				return iAmb;
 		}
 	}
-	Vec3 v = (ray->Origin-pI);
-	//Vec3 v = (ray->dr)*(-1.0f);
+	//Vec3 v = (ray->Origin-pI);
+	Vec3 v = (ray->dr)*(-1.0f);
 	Vec3 l = normalize(lp->pF - pI);
 	Vec3 n = normalize(this->center-pI);
-	Vec3 r = (2.0f*dot(n,l)*n)-l;
-	r = r-l;
 	float fd = dot(n,l);
-	float fe = pow(dot(r,l),this->m);
 	if (fd < 0.0f){
 		fd = 0.0f;
 	}
+	Vec3 r = (2.0f*fd*n)-l;
+	float fe = pow(dot(r,l),this->m);
+	//cout << fe << endl;
 	if (fe < 0.0f)
 		fe = 0.0f;
 	//cout << "FD: "<< fd << " "<< "FE: " << fe << " | ";
@@ -80,7 +81,7 @@ Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> 
 	Vec4 iDif = (ats(this->colorDif,lp->intensity)*fd);
 	//cout <<"iDif: ";iDif.print();
 	Vec4 iEsp = (ats(this->colorEsp,lp->intensity)*fe);
-	//cout <<"iEsp: ";iEsp.print();
+	// cout <<"iEsp: ";iEsp.print();
 	Vec4 final = (iAmb+iDif+iEsp);
 	final = final*255.0f;
 	final = Vec4(min(final.x,255.0f),
