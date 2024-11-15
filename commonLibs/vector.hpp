@@ -4,6 +4,9 @@
 using namespace std;
 
 #define tMax 9999.9f
+#define Vec40 Vec4(0.0f,0.0f,0.0f,0.0f)
+#define Vec41 Vec4(1.0f,1.0f,1.0f,1.0f)
+#define coefError 0.989f
 
 class Vec3 {
 public:
@@ -75,6 +78,7 @@ inline std::ostream& operator<<(ostream&,Vec4);
 Vec4 ats (Vec4,Vec4);
 Vec4 clamp(Vec4,Vec4,Vec4);
 Vec4 operator/(Vec4,float n);
+Vec4 toAbs(Vec4);
 // Vec3 Implementation 
 float dot (Vec3 a,Vec3 b){
 	return (a.x*b.x+a.y*b.y+a.z*b.z);
@@ -164,9 +168,21 @@ Vec4 clamp(Vec4 u,Vec4 v,Vec4 t) {
 	float y = std::min(std::max(u.y, v.y), t.y);
 	float z = std::min(std::max(u.z, v.z), t.z);
 	float a = std::min(std::max(u.a, v.a), t.a);
-
+	return Vec4(x, y, z, a);
+}
+Vec4 clamp(Vec4 u) {
+	float x = std::min(std::max(u.x, 0.0f), 1.0f);
+	float y = std::min(std::max(u.y, 0.0f), 1.0f);
+	float z = std::min(std::max(u.z, 0.0f), 1.0f);
+	float a = std::min(std::max(u.a, 0.0f), 1.0f);
 	return Vec4(x, y, z, a);
 }
 Vec4 operator/(Vec4 v,float t){
 	return v*(1/t);
+}
+Vec4 toAbs(Vec4 v){
+	return Vec4(abs(v.x),
+				abs(v.y),
+				abs(v.z),
+				1.0f);
 }
