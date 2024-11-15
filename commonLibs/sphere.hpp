@@ -82,7 +82,7 @@ Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> 
 								finalColor.z,
 								1.0f
 							);
-			cout << finalColor << endl;
+			//cout << finalColor << endl;
 			return finalColor;
 		}
 		if (fe < 0.0f){
@@ -92,7 +92,7 @@ Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> 
 								finalColor.z,
 								1.0f
 							);
-			cout << finalColor << endl;
+			//cout << finalColor << endl;
 			return finalColor;
 		}
 		finalColor = (iAmb+iDif+iEsp);
