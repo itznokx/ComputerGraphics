@@ -12,16 +12,20 @@ int main (void){
 	Sphere s2 = Sphere(Vec3(10.0f,0.0f,-20.0f),rSphere,Vec4(0.2f, 0.2f, 0.7f,1.0f),1.0f);
 	Plane p1 = Plane(Vec3(0.0f,-rSphere,0.0f),
 					 Vec3(0.0f,1.0f,0.0f),
-					 Vec4(0.2f,0.7f,0.7f,1.0f),1.0f);
+					 Vec4(0.2f,0.7f,0.2\f,1.0f),1.0f);
+	Plane p2 = Plane(Vec3(0.0f,0.0f,-200.0f),
+					 Vec3(0.0f,0.0f,1.0f),
+					 Vec4(0.3f,0.3f,0.7f,1.0f),1.0f);
 	Light l1 = Light(Vec3(0.0f,60.0f,-30.0f),Vec4(0.7f, 0.7f, 0.7f,1.0f));
 	cena.insertLight(&l1);
-	cena.setAmbientLight(Vec4(0.0f, 0.0f, 0.0f,1.0f));
+	cena.setAmbientLight(Vec4(0.3f, 0.3f, 0.3f,1.0f));
 	std::cout << "Sphere created\n";
 	cena.insertObj(&s1);
 	//cena.insertObj(&s2);
 	//cena.insertObj(&s3);
 
 	cena.insertObj(&p1);
+	cena.insertObj(&p2);
 	WindowSDL janela = WindowSDL(500,500);
 	uint32_t* matrix = colorMatrix(cena,60.0f,60.0f,
 								500,500,dJanela);

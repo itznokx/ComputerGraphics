@@ -50,38 +50,39 @@ float Sphere::intersects(Ray* ray){
 	}
 }
 Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
-		Vec3 pI = ray->at(ti*1.f);
+		Vec3 pI = ray->at(ti*0.995f);
 		Vec4 iAmb = (ats(amb->intensity,this->colorAmb));
-		/*
 		for (Object *obj : objs){
 			Ray* rayAux = new Ray(pI,lp->pF-pI);
 			float tiAux = obj->intersects(rayAux);
 			if(tiAux >= 0.0f && tiAux < tMax){
 				return iAmb;
 			}
-		}*/
+		}
 		Vec3 n = normalize(pI - this->center);
 		Vec3 l = normalize(lp->pF-pI);
 		Vec3 v = ray->dr*(-1.0f);
 		//Vec3 v = normalize(pI - ray->origin);
 		Vec3 r = (2.0f*(dot(l,n)*n))-l;
 		float fd = dot(l,n);
-		Vec4 iDif = (ats(lp->intensity,this->colorDif)*fd);
 		float fe = pow(dot(r,v),this->m);
-		Vec4 iEsp = (ats(lp->intensity,this->colorEsp)*fe);
-		Vec4 finalColor;
+		if (fe <= 0.0f && fd <= 0.0f){
+			return iAmb;
+		}
+		Vec4 iDif = (ats(lp->intensity,this->colorDif))*fd;
+		Vec4 iEsp = (ats(lp->intensity,this->colorEsp))*fe;
 		cout << "fd: "<< fd << endl;
 		cout << "fe: "<< fe << endl;
-		if (fd < 0.0f)
-			finalColor = iAmb+iEsp;
-		if (fe < 0.0f)
-			finalColor = iAmb+iDif;
-		if (fe < 0.0f && fd < 0.0f)
-			finalColor = iAmb;
-		if (fe > 0.0f && fd > 0.0f)
-			finalColor = iAmb+iDif+iEsp;
+		if (fe > 0.0f && fd > 0.0f){
+			return (iAmb+iDif+iEsp);
+		}
+		if (fd < 0.0f){
+			return (iAmb+iEsp);
+		}
+		if (fe < 0.0f){
+			return (iAmb+iDif);
+		}
 		//cout << finalColor << endl;
-		return finalColor;
 		//return (0.5f)*Vec4(n.x+1.0f,n.y+1.0f,n.z+1.0f,1.0f);
 	
 }
