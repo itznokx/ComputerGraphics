@@ -21,7 +21,7 @@ int main (void){
 	//cena.insertObj(&p1);
 	// cena.insertObj(&s2);
 	WindowSDL janela = WindowSDL(500,500);
-	Vec4** matrix = colorMatrix(cena,10.0f,10.0f,
+	uint32_t* matrix = colorMatrix(cena,10.0f,10.0f,
 								500,500,dJanela);
 	std::cout << "Matrix of color created\n";
 	janela.renderScene(matrix);

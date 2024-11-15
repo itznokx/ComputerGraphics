@@ -104,6 +104,9 @@ Vec4 ats(Vec4 a,Vec4 b){
 Vec4 operator* (Vec4 v,float n){
 	return Vec4(v.x*n,v.y*n,v.z*n,v.a*n);
 }
+Vec4 operator* (float n,Vec4 v){
+	return v*n;
+}
 Vec4 operator+ (Vec4 v,Vec4 w){
 	return Vec4(v.x+w.x,v.y+w.y,v.z+w.z,v.a+w.a);
 }
@@ -126,4 +129,10 @@ Vec4 operator*(Vec4 v,Vec3 b){
 }
 Vec4 operator*(Vec3 b,Vec4 v){
 	return v*b;
+}
+Vec4 operator*(Vec4 v1,Vec4 v2){
+	return Vec4(v1.x*v2.x,v1.y*v2.y,v1.z*v2.z,v1.a*v2.a);
+}
+inline std::ostream& operator<<(ostream& out,Vec4 v){
+	return out << "(" << v.x << " , " << v.y << " , " << v.z << " , " << v.a << ")";
 }
