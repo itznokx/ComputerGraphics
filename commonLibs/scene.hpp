@@ -40,9 +40,8 @@ class Scene {
 		}
 		Vec4 returnColorScene (Ray* ray){
 			Object* o;
-			int index = 0; 
 			float tiAux;
-			float tiMin = 9999.99f;
+			float tiMin = tMax-1;
 			bool find = false;
 			for (Object *obj : this->objs){
 				tiAux = obj->intersects(ray);

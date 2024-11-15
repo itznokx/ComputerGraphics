@@ -8,8 +8,9 @@ int main (void){
 	float rSphere = 5.0f;
 	float dJanela = 5.0f;
 	Scene cena;
-	Sphere s1 = Sphere(Vec3(0.0f,0.0f,-(rSphere+dJanela)),rSphere,Vec4(0.7f, 0.2f, 0.2f,1.0f),1.0f);
-	Sphere s2 = Sphere(Vec3(0.0f,5.0f,-10.0f),rSphere,Vec4(0.2f, 0.2f, 0.7f,1.0f),10.0f);
+	Sphere s1 = Sphere(Vec3(0.0f,0.0f,-(rSphere+dJanela+0.0f)),rSphere,Vec4(0.7f, 0.2f, 0.2f,1.0f),1.0f);
+	Sphere s2 = Sphere(Vec3(10.0f,0.0f,-20.0f),rSphere,Vec4(0.2f, 0.2f, 0.7f,1.0f),10.0f);
+	Sphere s3 = Sphere(Vec3(-10.0f,0.0f,-10.0f),rSphere,Vec4(0.2f, 0.7f, 0.2f,1.0f),10.0f);
 	Plane p1 = Plane(Vec3(0.0f,0.0f,-200.0f),
 					 Vec3(0.0f,1.0f,0.0f),
 					 Vec4(0.2f,0.7f,0.7f,1.0f),1.0f);
@@ -18,8 +19,10 @@ int main (void){
 	cena.setAmbientLight(Vec4(0.f, 0.f, 0.f,1.0f));
 	std::cout << "Sphere created\n";
 	cena.insertObj(&s1);
+	//cena.insertObj(&s2);
+	//cena.insertObj(&s3);
+
 	//cena.insertObj(&p1);
-	// cena.insertObj(&s2);
 	WindowSDL janela = WindowSDL(500,500);
 	uint32_t* matrix = colorMatrix(cena,10.0f,10.0f,
 								500,500,dJanela);

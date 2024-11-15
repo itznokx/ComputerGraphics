@@ -50,8 +50,24 @@ float Sphere::intersects(Ray* ray){
 	}
 }
 Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
-		Vec3 n = normalize(ray->at(ti) - this->center);
+		Vec3 pI = ray->at(ti);
+		Vec3 n = normalize(pI - this->center);
+		Vec3 l = normalize(lp->pF-pI);
+		Vec3 v = ray->dr*(-1.0f);
+		Vec3 r = (2.0f*(dot(l,n)*n))-l;
+		Vec4 iAmb = ats(amb->intensity,this->colorAmb);
+		float fd = dot(l,n);
+		if (fd < 0.0f)
+			fd = 0.0f;
+		Vec4 iDif = ats(lp->intensity,this->colorDif)*fd;
+		float fe = pow(dot(r,v),this->m);
+		if (fe < 0.0f)
+			fe = 0.0f;
+		Vec4 iEsp = ats(lp->intensity,this->colorEsp)*fe;
+		Vec4 finalColor = iAmb+iDif+iEsp;
+		cout << finalColor << endl;
+		return finalColor;
 		//return Vec4(1.0f,0.0f,0.0f,1.0f);
-		return (0.5f)*Vec4(n.x+1.0f,n.y+1.0f,n.z+1.0f,1.0f);
+		//return (0.5f)*Vec4(n.x+1.0f,n.y+1.0f,n.z+1.0f,1.0f);
 	
 }
