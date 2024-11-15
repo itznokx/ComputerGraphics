@@ -141,3 +141,10 @@ Vec4 operator*(Vec4 v1,Vec4 v2){
 inline std::ostream& operator<<(ostream& out,Vec4 v){
 	return out << "(" << v.x << " , " << v.y << " , " << v.z << " , " << v.a << ")";
 }
+Vec4 clamp(Vec4 v){
+	return Vec4(min(1.0f,v.x),
+				min(1.0f,v.y),
+				min(1.0f,v.z),
+				min(1.0f,v.a)
+				);
+}

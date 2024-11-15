@@ -59,15 +59,15 @@ Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> 
 		float fd = dot(l,n);
 		if (fd < 0.0f)
 			fd = 0.0f;
-		Vec4 iDif = ats(lp->intensity,this->colorDif)*fd;
+		Vec4 iDif = clamp(ats(lp->intensity,this->colorDif)*fd);
 		float fe = pow(dot(r,v),this->m);
 		if (fe < 0.0f)
 			fe = 0.0f;
-		Vec4 iEsp = ats(lp->intensity,this->colorEsp)*fe;
-		Vec4 finalColor = iAmb+iDif+iEsp;
+		Vec4 iEsp = clamp(ats(lp->intensity,this->colorEsp)*fe);
+
+		Vec4 finalColor = clamp(iAmb+iDif+iEsp);
 		cout << finalColor << endl;
 		return finalColor;
-		//return Vec4(1.0f,0.0f,0.0f,1.0f);
 		//return (0.5f)*Vec4(n.x+1.0f,n.y+1.0f,n.z+1.0f,1.0f);
 	
 }
