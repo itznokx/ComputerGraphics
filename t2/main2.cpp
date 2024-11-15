@@ -12,7 +12,7 @@ int main (void){
 	Sphere s2 = Sphere(Vec3(10.0f,0.0f,-20.0f),rSphere,Vec4(0.2f, 0.2f, 0.7f,1.0f),1.0f);
 	Plane p1 = Plane(Vec3(0.0f,-rSphere,0.0f),
 					 Vec3(0.0f,1.0f,0.0f),
-					 Vec4(0.2f,0.7f,0.2\f,1.0f),1.0f);
+					 Vec4(0.2f,0.7f,0.2f,1.0f),1.0f);
 	Plane p2 = Plane(Vec3(0.0f,0.0f,-200.0f),
 					 Vec3(0.0f,0.0f,1.0f),
 					 Vec4(0.3f,0.3f,0.7f,1.0f),1.0f);
