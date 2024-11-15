@@ -12,7 +12,7 @@ uint32_t* colorMatrix(Scene s1,float wJanela,float hJanela,int wCanvas,int hCanv
 		for (int col=0;col<wCanvas;++col){
 			float xP = (-wJanela/2.0f) + (deltaX/2.0f) + (col*deltaX);
 			float yP = (hJanela/2.0f) - (deltaY/2.0f) - (lin*deltaY);
-			Ray* auxRay = new Ray(observer,Vec3(xP,yP,-d));
+			Ray* auxRay = new Ray(observer,Vec3(xP,yP,zP));
 			//cout << auxRay->dr << endl;
 			int index = (wCanvas*lin)+col;
 			Vec4 color = s1.returnColorScene(auxRay);

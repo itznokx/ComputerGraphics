@@ -7,6 +7,8 @@
 #include <memory>
 using namespace std;
 
+#define tMax 9999.9f
+
 class Scene {
 	vector<Object*> objs;
 	vector<Light*> lights;
@@ -44,7 +46,7 @@ class Scene {
 			bool find = false;
 			for (Object *obj : this->objs){
 				tiAux = obj->intersects(ray);
-				if(tiAux >= 0.0f){
+				if(tiAux >= 0.0f && tiAux < tMax){
 					find = true;
 					if(tiAux < tiMin){
 						tiMin = tiAux;
@@ -56,13 +58,13 @@ class Scene {
 			if (find == false){
 				Vec3 normal = normalize(ray->dr);
 				float a = 0.5f*(normal.y+1.0f);
-				Vec4 finalColor = (1.0-a)*Vec4(1.0f,1.0f,1.0f,1.0f) + a*Vec4(0.1f,0.1f,1.0f,1.0f);
+				Vec4 finalColor = (1.0-a)*Vec4(1.0f,1.0f,1.0f,1.0f) + a*Vec4(0.5f,0.7f,1.0f,1.0f);
 				//cout << finalColor << endl;
 				return finalColor;
 			}
 			else{
 				Vec4 finalColor = (o->returnColor(tiMin,ray,lights[0],ambLight,this->objs));
-				cout << finalColor << endl;
+				//cout << finalColor << endl;
 				return finalColor;
 			}
 
