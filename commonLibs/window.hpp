@@ -11,11 +11,11 @@ class WindowSDL {
 		initializeSDL();
 		this->window = SDL_CreateWindow(
 				"CG WORK",
-				SDL_WINDOWPOS_UNDEFINED,
-				SDL_WINDOWPOS_UNDEFINED,
+				SDL_WINDOWPOS_CENTERED,
+				SDL_WINDOWPOS_CENTERED,
 				wCanvas,
 				hCanvas,
-				SDL_WINDOW_SHOWN);
+				0);
 		if (!window){
 			SDL_Log("Window Creation failed.\nSDL_ERROR: %s", SDL_GetError());
 			SDL_Quit();
@@ -30,7 +30,7 @@ class WindowSDL {
 			}
 			texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, wCanvas, hCanvas);
 	    	SDL_SetWindowResizable(window, SDL_FALSE);
-			std::cout << "Renderer created\n";		
+			std::cout << "Renderer created\n";
 		}
 	}
 	void renderScene(uint32_t* pixels){
@@ -67,7 +67,7 @@ class WindowSDL {
 	
 	private:
 	int initializeSDL (){
-		if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_EVENTS) <0) {
+		if (SDL_Init(SDL_INIT_VIDEO) <0) {
 			std::cout << "Error SDL Initialization: " << SDL_GetError();
 			return 0;
 		}

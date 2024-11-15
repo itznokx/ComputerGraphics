@@ -5,7 +5,7 @@ using namespace std;
 class Vec3 {
 public:
 	float x,y,z;
-	Vec3(float _x,float _y,float _z) : x(_x),y(_y),z(_z)
+	Vec3(float pX,float pY,float pZ) : x(pX),y(pY),z(pZ)
 	{}
 	Vec3()
 	{}
@@ -20,6 +20,9 @@ public:
 	}
 	float lenght_squared() const {
 		return (x*x+y*y+z*z);
+	}
+	Vec3 operator-() const{
+		return Vec3((-1.0f)*this->x,(-1.0f)*this->y,(-1.0f)*this->z);
 	}
 };
 class Vec4 {
@@ -41,7 +44,6 @@ class Vec4 {
 	}
 };
 //Vec3 operations declaration
-float dot(Vec3*,Vec3*); //ok
 float dot(Vec3 ,Vec3 ); //ok
 Vec3 normalize(Vec3*); //ok
 Vec3 normalize(Vec3 ); //ok
@@ -59,11 +61,11 @@ Vec4 normalize(Vec4);
 Vec4 normalize(Vec4*);
 Vec4 ats (Vec4,Vec4);
 // Vec3 Implementation 
-float dot (Vec3* a,Vec3* b){
-	return (a->x*b->x+a->y*b->y+a->z*b->z);
-}
 float dot (Vec3 a,Vec3 b){
 	return (a.x*b.x+a.y*b.y+a.z*b.z);
+}
+float dot (Vec3 v){
+	return dot(v,v);
 }
 Vec3 normalize (Vec3* a) {
 	float norm = a->lenght();
@@ -97,9 +99,12 @@ Vec3 cross (Vec3 a,Vec3 b){
 	float z = (a.x*b.y - a.y*b.x);
 	return Vec3(x,y,z);
 }
+inline std::ostream& operator<<(ostream& out,Vec3 v){
+	return out << "(" << v.x << " , " << v.y << " , " << v.z << ")";
+}
 // Vec4 Implementations
 Vec4 ats(Vec4 a,Vec4 b){
-	return Vec4(a.x*b.x,a.y*b.y,a.z*b.z,255.0f);
+	return Vec4(a.x*b.x,a.y*b.y,a.z*b.z,a.a*b.a);
 }
 Vec4 operator* (Vec4 v,float n){
 	return Vec4(v.x*n,v.y*n,v.z*n,v.a*n);

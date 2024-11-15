@@ -7,8 +7,8 @@ class Ray {
 public:
 	Vec3 origin;
 	Vec3 dr;
-	Ray(Vec3 _origin,Vec3 _dr) : origin(_origin),
-								 dr(_dr)
+	Ray(Vec3 rayOrigin,Vec3 direction) : 	origin(rayOrigin),
+								 			dr(direction)
 	{}
 	Vec3 at (float ti) const {
 		return origin + (ti*dr);

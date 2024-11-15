@@ -9,7 +9,7 @@ public:
 	string type;
 	Vec3 center;
 	float m;
-	float r;
+	float radius;
 	Sphere(Vec3 _center,float _r,Vec4 _colorDif,Vec4 _colorEsp,Vec4 _colorAmb,float _m) : 
 												colorAmb(_colorAmb),
 												colorDif(_colorDif),
@@ -17,7 +17,7 @@ public:
 												type("Sphere"),
 												center(_center), 
 												m(_m),
-												r(_r)
+												radius(_r)
 	{}
 	Sphere(Vec3 _center,float _r,Vec4 color,float _m) : 
 												colorAmb(color),
@@ -26,21 +26,27 @@ public:
 												type("Sphere"),
 												center(_center), 
 												m(_m),
-												r(_r)
+												radius(_r)
 	{}
 	float intersects(Ray* ray);
 	Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs);
 };
 float Sphere::intersects(Ray* ray){
 	Vec3 oc = this->center - ray->origin;
-	auto a = dot(ray->dr,ray->dr);
-	auto b = -2.0f * dot(ray->dr,oc);
-	auto c = dot (oc,oc) - (this->r*this->r);
-	auto delta = b*b - (4*a*c);
+	cout << ray->dr << endl;
+	auto a = dot((ray->dr));
+	cout << a << endl;
+	auto b = (-2.0f)*dot(ray->dr,oc);
+	cout << b << endl;
+	auto c = dot(oc,oc) - (this->radius*this->radius);
+	cout << c << endl;
+	auto delta = (b*b)-4*a*c;
+	
 	if (delta < 0)
 		return -1.0f;
 	else {
-		return (-b -sqrt(delta) ) / (2.0*a);
+
+		return (-b - sqrt(delta) ) / (2.0f*a);
 	}
 }
 Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
