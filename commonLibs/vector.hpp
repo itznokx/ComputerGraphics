@@ -15,6 +15,12 @@ public:
 	void print (){
 		printf("(%f,%f,%f)\n",this->x,this->y,this->z);
 	}
+	float lenght() const {
+		return sqrt(lenght_squared());
+	}
+	float lenght_squared() const {
+		return (x*x+y*y+z*z);
+	}
 };
 class Vec4 {
 	public:
@@ -34,7 +40,7 @@ class Vec4 {
 		printf("(%f,%f,%f,%f)\n",this->x,this->y,this->z,this->a);
 	}
 };
-//Header classes
+//Vec3 operations declaration
 float dot(Vec3*,Vec3*); //ok
 float dot(Vec3 ,Vec3 ); //ok
 Vec3 normalize(Vec3*); //ok
@@ -44,17 +50,15 @@ Vec3 operator-(Vec3,Vec3);  // ok
 Vec3 operator*(Vec3,float);  // ok
 Vec3 operator*(float,Vec3);  // ok
 Vec3 cross(Vec3,Vec3);
-/*Vec4 operations*/
-
+/*Vec4 operations declaration*/
 Vec4 operator*(Vec4,float); //ok
 Vec4 operator+(Vec4,Vec4); //ok
 float dot(Vec4,Vec4);
 float dot(Vec4*,Vec4*);
 Vec4 normalize(Vec4);
 Vec4 normalize(Vec4*);
-//operador arroba
 Vec4 ats (Vec4,Vec4);
-// Implementation 
+// Vec3 Implementation 
 float dot (Vec3* a,Vec3* b){
 	return (a->x*b->x+a->y*b->y+a->z*b->z);
 }
@@ -62,21 +66,21 @@ float dot (Vec3 a,Vec3 b){
 	return (a.x*b.x+a.y*b.y+a.z*b.z);
 }
 Vec3 normalize (Vec3* a) {
-	float norm = sqrt(dot(a,a));
+	float norm = a->lenght();
 	return Vec3((a->x/norm),(a->y/norm),(a->z/norm)); 
 }
 Vec3 normalize (Vec3 a) {
-	float norm = sqrt(dot(a,a));
+	float norm = a.lenght();
 	return Vec3((a.x/norm),(a.y/norm),(a.z/norm)); 
 }
 Vec3 operator*(Vec3 a,Vec3 b){
 	return Vec3(a.x*b.x,a.y*b.y,a.z*b.z);
 }
-Vec3 operator*(float n,Vec3 v){
-	return Vec3(v.x*n,v.y*n,v.z*n);
-}
 Vec3 operator*(Vec3 v,float n){
 	return Vec3(v.x*n,v.y*n,v.z*n);
+}
+Vec3 operator*(float n,Vec3 v){
+	return v*n;
 }
 Vec3 operator-(Vec3 a,Vec3 b){
 	return Vec3(a.x-b.x,a.y-b.y,a.z-b.z); 
@@ -84,12 +88,16 @@ Vec3 operator-(Vec3 a,Vec3 b){
 Vec3 operator+(Vec3 a,Vec3 b){
 	return Vec3(a.x+b.x,a.y+b.y,a.z+b.z);
 }
+Vec3 operator/(Vec3 v,float n){
+	return v*(1/n);
+}
 Vec3 cross (Vec3 a,Vec3 b){
 	float x = (a.y*b.z - a.z*b.y);
 	float y = (a.z*b.x - a.x*b.z);
 	float z = (a.x*b.y - a.y*b.x);
 	return Vec3(x,y,z);
 }
+// Vec4 Implementations
 Vec4 ats(Vec4 a,Vec4 b){
 	return Vec4(a.x*b.x,a.y*b.y,a.z*b.z,255.0f);
 }
@@ -112,4 +120,10 @@ Vec4 normalize (Vec4 v) {
 Vec4 normalize (Vec4* v) {
 	float norm = sqrt(dot(v,v));
 	return Vec4((v->x/norm),(v->y/norm),(v->z/norm),(v->a/norm)); 
+}
+Vec4 operator*(Vec4 v,Vec3 b){
+	return Vec4 (v.x*b.x,v.y*b.y,v.z*b.z,v.a);
+}
+Vec4 operator*(Vec3 b,Vec4 v){
+	return v*b;
 }

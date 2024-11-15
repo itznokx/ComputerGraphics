@@ -13,13 +13,13 @@ int main (void){
 	Plane p1 = Plane(Vec3(0.0f,0.0f,-200.0f),
 					 Vec3(0.0f,1.0f,0.0f),
 					 Vec4(0.2f,0.7f,0.7f,1.0f),1.0f);
-	Light l1 = Light(Vec3(0.0f,-5.0f,0.0f),Vec4(0.7f, 0.7f, 0.7f,1.0f));
+	Light l1 = Light(Vec3(0.0f,5.0f,0.0f),Vec4(0.7f, 0.7f, 0.7f,1.0f));
 	cena.insertLight(&l1);
 	cena.setAmbientLight(Vec4(0.f, 0.f, 0.f,1.0f));
 	std::cout << "Sphere created\n";
 	cena.insertObj(&s1);
 	//cena.insertObj(&p1);
-	//cena.insertObj(&s2);
+	// cena.insertObj(&s2);
 	WindowSDL janela = WindowSDL(500,500);
 	Vec4** matrix = colorMatrix(cena,10.0f,10.0f,
 								500,500,dJanela);

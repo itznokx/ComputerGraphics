@@ -31,7 +31,7 @@ public:
 
 };
 float Plane::intersects(Ray* ray){
-	Vec3 v = ray->Origin - this->anchorPoint;
+	Vec3 v = ray->origin - this->anchorPoint;
 	float ti = (dot(v,this->normal)*(-1))/(dot(ray->dr,this->normal));
 	return ti;
 }

@@ -22,8 +22,8 @@ float Object::intersects(Ray* ray){
 	return -404.404f;
 }
 Vec4 Object::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
-	float dotti = dot(ray->Origin,lp->pF);
-	float dotaux = dot(amb->pF,ray->Origin);
+	float dotti = dot(ray->origin,lp->pF);
+	float dotaux = dot(amb->pF,ray->origin);
 	float aux = ti*dotti*dotaux;
 	cout << "Color objs" << "\n";
 	return Vec4(0.0f*aux,0.0f,0.0f,1.0f);
