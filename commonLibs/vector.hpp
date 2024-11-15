@@ -2,6 +2,9 @@
 #include <iostream>
 #include <cmath>
 using namespace std;
+
+#define tMax 9999.9f
+
 class Vec3 {
 public:
 	float x,y,z;
@@ -42,6 +45,12 @@ class Vec4 {
 	void print (){
 		printf("(%f,%f,%f,%f)\n",this->x,this->y,this->z,this->a);
 	}
+	float lenght_squared() const {
+		return (x*x+y*y+z*z+a*a);
+	}
+	float lenght() const {
+		return sqrt(lenght_squared());
+	}
 };
 //Vec3 operations declaration
 float dot(Vec3 ,Vec3 ); //ok
@@ -59,7 +68,13 @@ float dot(Vec4,Vec4);
 float dot(Vec4*,Vec4*);
 Vec4 normalize(Vec4);
 Vec4 normalize(Vec4*);
+Vec4 operator*(Vec4 ,Vec3 );
+Vec4 operator*(Vec3 ,Vec4 );
+Vec4 operator*(Vec4 ,Vec4 );
+inline std::ostream& operator<<(ostream&,Vec4);
 Vec4 ats (Vec4,Vec4);
+Vec4 clamp(Vec4,Vec4,Vec4);
+Vec4 operator/(Vec4,float n);
 // Vec3 Implementation 
 float dot (Vec3 a,Vec3 b){
 	return (a.x*b.x+a.y*b.y+a.z*b.z);
@@ -115,6 +130,9 @@ Vec4 operator* (float n,Vec4 v){
 Vec4 operator+ (Vec4 v,Vec4 w){
 	return Vec4(v.x+w.x,v.y+w.y,v.z+w.z,v.a+w.a);
 }
+Vec4 operator+ (Vec4 v,float n){
+	return Vec4(v.x+n,v.y+n,v.z+n,v.a+n);
+}
 float dot (Vec4* v,Vec4* b){
 	return (v->x*b->x+v->y*b->y+v->z*b->z+v->a*b->a);
 }
@@ -122,11 +140,11 @@ float dot (Vec4 v,Vec4 b){
 	return (v.x*b.x+v.y*b.y+v.z*b.z+v.a*b.a);
 }
 Vec4 normalize (Vec4 v) {
-	float norm = sqrt(dot(v,v));
+	float norm = v.lenght();
 	return Vec4((v.x/norm),(v.y/norm),(v.z/norm),(v.a/norm)); 
 }
 Vec4 normalize (Vec4* v) {
-	float norm = sqrt(dot(v,v));
+	float norm = v->lenght();
 	return Vec4((v->x/norm),(v->y/norm),(v->z/norm),(v->a/norm)); 
 }
 Vec4 operator*(Vec4 v,Vec3 b){
@@ -141,10 +159,14 @@ Vec4 operator*(Vec4 v1,Vec4 v2){
 inline std::ostream& operator<<(ostream& out,Vec4 v){
 	return out << "(" << v.x << " , " << v.y << " , " << v.z << " , " << v.a << ")";
 }
-Vec4 clamp(Vec4 v){
-	return Vec4(min(1.0f,v.x),
-				min(1.0f,v.y),
-				min(1.0f,v.z),
-				min(1.0f,v.a)
-				);
+Vec4 clamp(Vec4 u,Vec4 v,Vec4 t) {
+	float x = std::min(std::max(u.x, v.x), t.x);
+	float y = std::min(std::max(u.y, v.y), t.y);
+	float z = std::min(std::max(u.z, v.z), t.z);
+	float a = std::min(std::max(u.a, v.a), t.a);
+
+	return Vec4(x, y, z, a);
+}
+Vec4 operator/(Vec4 v,float t){
+	return v*(1/t);
 }

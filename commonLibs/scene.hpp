@@ -6,9 +6,6 @@
 #include "light.hpp"
 #include <memory>
 using namespace std;
-
-#define tMax 9999.9f
-
 class Scene {
 	vector<Object*> objs;
 	vector<Light*> lights;
