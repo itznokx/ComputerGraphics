@@ -13,9 +13,9 @@ int main (void){
 	Plane p1 = Plane(Vec3(0.0f,-rSphere,0.0f),
 					 Vec3(0.0f,1.0f,0.0f),
 					 Vec4(0.2f,0.7f,0.7f,1.0f),1.0f);
-	Light l1 = Light(Vec3(0.0f,60.0f,-60.0f),Vec4(0.7f, 0.7f, 0.7f,1.0f));
+	Light l1 = Light(Vec3(0.0f,60.0f,-30.0f),Vec4(0.7f, 0.7f, 0.7f,1.0f));
 	cena.insertLight(&l1);
-	cena.setAmbientLight(Vec4(0.1f, 0.1f, 0.1f,1.0f));
+	cena.setAmbientLight(Vec4(0.0f, 0.0f, 0.0f,1.0f));
 	std::cout << "Sphere created\n";
 	cena.insertObj(&s1);
 	//cena.insertObj(&s2);
