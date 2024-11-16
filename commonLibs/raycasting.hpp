@@ -17,6 +17,7 @@ uint32_t* colorMatrix(Scene s1,float wJanela,float hJanela,int wCanvas,int hCanv
 			int index = (wCanvas*lin)+col;
 			Vec4 color = s1.returnColorScene(auxRay);
 			final[index] = toRGBA(color);
+			delete(auxRay);
 		}
 	} 
 	return final;
