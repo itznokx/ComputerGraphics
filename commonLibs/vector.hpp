@@ -6,7 +6,7 @@ using namespace std;
 #define tMax 9999.9f
 #define Vec40 Vec4(0.0f,0.0f,0.0f,0.0f)
 #define Vec41 Vec4(1.0f,1.0f,1.0f,1.0f)
-#define coefError 0.989f
+#define coefError 0.988f
 
 class Vec3 {
 public:

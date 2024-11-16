@@ -9,11 +9,11 @@ int main (void){
 	float dJanela = 30.0f;
 	Scene cena;
 	Sphere s1 = Sphere(Vec3(0.0f,0.0f,-100.0f),rSphere,Vec4(0.7f, 0.2f, 0.2f,1.0f),1.0f);
-	Sphere s2 = Sphere(Vec3(-80.0f,0.0f,-150.0f),rSphere,Vec4(0.2f, 0.7f, 0.2f,1.0f),1.0f);
-	Sphere s3 = Sphere(Vec3(80.0f,0.0f,-150.0f),rSphere,Vec4(0.2f, 0.2f, 0.7f,1.0f),1.0f);
+	Sphere s2 = Sphere(Vec3(-80.0f,0.0f,-140.0f),rSphere,Vec4(0.2f, 0.7f, 0.2f,1.0f),1.0f);
+	Sphere s3 = Sphere(Vec3(80.0f,0.0f,-140.0f),rSphere,Vec4(0.2f, 0.2f, 0.7f,1.0f),1.0f);
 	Plane p1 = Plane(Vec3(0.0f,-rSphere,0.0f),
 					 Vec3(0.0f,1.0f,0.0f),
-					 Vec4(0.2f,0.7f,0.2f,1.0f),1.0f);
+					 Vec4(0.7f,0.7f,0.2f,1.0f),1.0f);
 	Plane p2 = Plane(Vec3(0.0f,0.0f,-200.0f),
 					 Vec3(0.0f,0.0f,1.0f),
 					 Vec4(0.3f,0.3f,0.7f,1.0f),1.0f);
@@ -22,9 +22,8 @@ int main (void){
 	cena.setAmbientLight(Vec4(0.3f, 0.3f, 0.3f,1.0f));
 	std::cout << "Sphere created\n";
 	cena.insertObj(&s1);
-	//cena.insertObj(&s2);
-	//cena.insertObj(&s3);
-
+	cena.insertObj(&s2);
+	cena.insertObj(&s3);
 	cena.insertObj(&p1);
 	cena.insertObj(&p2);
 	WindowSDL janela = WindowSDL(500,500);
