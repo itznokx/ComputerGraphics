@@ -30,7 +30,7 @@ public:
 	Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs);
 
 };
-float Plane::intersects(Ray* ray){
+float Plane::intersects(Ray* ray) {
 	Vec3 v = ray->origin - this->anchorPoint;
 	float ti = -dot(v,this->normal)/(dot(ray->dr,this->normal));
 	return ti;
