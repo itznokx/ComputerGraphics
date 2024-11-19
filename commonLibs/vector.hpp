@@ -7,7 +7,7 @@ using namespace std;
 #define Vec40 Vec4(0.0f,0.0f,0.0f,0.0f)
 #define Vec41 Vec4(1.0f,1.0f,1.0f,1.0f)
 #define coefError 0.99998f
-
+#define coefErrorPlane 0.0099f
 class Vec3 {
 public:
 	float x,y,z;
@@ -60,6 +60,7 @@ float dot(Vec3 ,Vec3 ); //ok
 Vec3 normalize(Vec3*); //ok
 Vec3 normalize(Vec3 ); //ok
 Vec3 operator+(Vec3,Vec3); // ok
+Vec3 operator-(Vec3,float); 
 Vec3 operator-(Vec3,Vec3);  // ok
 Vec3 operator*(Vec3,float);  // ok
 Vec3 operator*(float,Vec3);  // ok
@@ -105,6 +106,9 @@ Vec3 operator*(float n,Vec3 v){
 }
 Vec3 operator-(Vec3 a,Vec3 b){
 	return Vec3(a.x-b.x,a.y-b.y,a.z-b.z); 
+}
+Vec3 operator-(Vec3 v,float n){
+	return Vec3(v.x-n,v.y-n,v.z-n);
 }
 Vec3 operator+(Vec3 a,Vec3 b){
 	return Vec3(a.x+b.x,a.y+b.y,a.z+b.z);

@@ -31,17 +31,17 @@ public:
 
 };
 float Plane::intersects(Ray* ray) {
-	Vec3 v = ray->origin - this->anchorPoint;
-	float ti = -dot(v,this->normal)/(dot(ray->dr,this->normal));
+	Vec3 v = (ray->origin - this->anchorPoint);
+	float ti = (-dot(v,this->normal))/(dot(ray->dr,this->normal));
 	return ti;
 }
 Vec4 Plane::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
-	Vec3 pI = ray->at(ti*coefError);
+	Vec3 pI = ray->at(ti);
 	Vec4 iAmb = (ats(amb->intensity,this->colorAmb));
 	for (Object *obj : objs){
-		Ray* rayAux = new Ray(pI,lp->pF-pI);
-		float tiAux = obj->intersects(rayAux);
-		if(tiAux >= 0.0f && tiAux < tMax && obj!=this){
+		Ray rayAux = Ray(pI,lp->pF-pI);
+		float tiAux = obj->intersects(&rayAux);
+		if(tiAux > 0.0f && tiAux < tMax && obj!=this){
 			return (iAmb);
 		}
 	}
@@ -55,30 +55,30 @@ Vec4 Plane::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> o
 	Vec4 iEsp = (ats(lp->intensity,this->colorEsp)*fe);
 	Vec4 finalColor;
 	if (fd < 0.0f){
-			finalColor = (iAmb+iEsp);
-			finalColor = Vec4(	finalColor.x,
-								finalColor.y,
-								finalColor.z,
-								1.0f
-							);
-			//cout << finalColor << endl;
-			return finalColor;
-		}
-		if (fe < 0.0f){
-			finalColor = (iAmb+iDif);
-			finalColor = Vec4(	finalColor.x,
-								finalColor.y,
-								finalColor.z,
-								1.0f
-							);
-			//cout << finalColor << endl;
-			return finalColor;
-		}
-		finalColor = (iAmb+iDif+iEsp);
-		finalColor = Vec4(	min(finalColor.x,1.0f),
-							min(finalColor.y,1.0f),
-							min(finalColor.z,1.0f),
+		finalColor = (iAmb+iEsp);
+		finalColor = Vec4(	finalColor.x,
+							finalColor.y,
+							finalColor.z,
 							1.0f
 						);
+		//cout << finalColor << endl;
 		return finalColor;
+	}
+	if (fe < 0.0f){
+		finalColor = (iAmb+iDif);
+		finalColor = Vec4(	finalColor.x,
+							finalColor.y,
+							finalColor.z,
+							1.0f
+						);
+		//cout << finalColor << endl;
+		return finalColor;
+	}
+	finalColor = (iAmb+iDif+iEsp);
+	finalColor = Vec4(	min(finalColor.x,1.0f),
+						min(finalColor.y,1.0f),
+						min(finalColor.z,1.0f),
+						1.0f
+					);
+	return finalColor;
 }
