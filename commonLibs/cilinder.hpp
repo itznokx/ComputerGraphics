@@ -15,7 +15,7 @@ class circlePlane : public Plane {
 																normal(normalize(direction)), 
 																radius(_radius)
 	{}
-}
+};
 class Cilinder : public Object{
 	circlePlane bi,bs;
 	float h;
@@ -47,4 +47,4 @@ class Cilinder : public Object{
     	float h = direction.lenght();
     	direction = normalize(direction);
     }
-}
+};
