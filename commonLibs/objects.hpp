@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
-#include <algorithm>
+#include <vector>
 #include "vector.hpp"
 #include "ray.hpp"
 #include "light.hpp"
-using namespace std; 
+using namespace std;
 
 class Object {
 public:
@@ -16,7 +16,7 @@ public:
 	virtual float intersects(Ray* ray);
 	virtual Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs);
 };
-//Generic Implementation 
+//Generic Implementation
 float Object::intersects(Ray* ray){
 	cout << "Obj intersects" << "\n";
 	return -404.404f;

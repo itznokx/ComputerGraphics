@@ -1,4 +1,5 @@
 #include "objects.hpp"
+#include <vector>
 #include <iostream>
 //Plane
 class Plane : public Object{
@@ -24,7 +25,7 @@ public:
 												m(_m)
 												{
 		Vec3 w = cross((p2-p1),(p3-p1));
-		this->normal = normalize(w); 
+		this->normal = normalize(w);
 	}
 	float intersects(Ray* ray);
 	Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs);
