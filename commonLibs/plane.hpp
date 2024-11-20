@@ -25,7 +25,7 @@ public:
 												m(_m)
 												{
 		Vec3 w = cross((p2-p1),(p3-p1));
-		this->normal = normalize(w);
+		this->normal = (w);
 	}
 	float intersects(Ray* ray);
 	Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs);
@@ -42,7 +42,7 @@ Vec4 Plane::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> o
 	for (Object *obj : objs){
 		Ray rayAux = Ray(pI,lp->pF-pI);
 		float tiAux = obj->intersects(&rayAux);
-		if(tiAux > 0.0f && tiAux < tMax && obj!=this){
+		if(tiAux > 0.0f && tiAux < 1.0f && obj!=this){
 			return (iAmb);
 		}
 	}

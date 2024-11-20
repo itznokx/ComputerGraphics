@@ -6,7 +6,7 @@ using namespace std;
 
 int main (void){
 	float rSphere = 40.0f;
-	float dJanela = 30.0f;
+	float dJanela = 10.0f;
 	Scene cena;
 	Sphere s1 = Sphere(Vec3(0.0f,0.0f,-100.0f),rSphere,Vec4(0.7f, 0.2f, 0.2f,1.0f),9.0f);
 	Sphere s2 = Sphere(Vec3(-80.0f,0.0f,-140.0f),rSphere,Vec4(0.2f, 0.7f, 0.2f,1.0f),9.0f);
@@ -21,9 +21,9 @@ int main (void){
 	cena.insertLight(&l1);
 	cena.setAmbientLight(Vec4(0.3f, 0.3f, 0.3f,1.0f));
 	std::cout << "Sphere created\n";
-	//cena.insertObj(&s1);
-	//cena.insertObj(&s2);
-	//cena.insertObj(&s3);
+	cena.insertObj(&s1);
+	cena.insertObj(&s2);
+	cena.insertObj(&s3);
 	cena.insertObj(&p1);
 	cena.insertObj(&p2);
 	WindowSDL janela = WindowSDL(500,500);

@@ -55,7 +55,7 @@ Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> 
 		for (Object *obj : objs){
 			Ray* rayAux = new Ray(pI,lp->pF-pI);
 			float tiAux = obj->intersects(rayAux);
-			if(tiAux >= 0.0f && tiAux < tMax){
+			if(tiAux >= 0.0f && tiAux < 1.0f){
 				return clamp(iAmb);
 			}
 		}
