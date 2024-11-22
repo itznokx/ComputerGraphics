@@ -4,6 +4,7 @@
 #include "sphere.hpp"
 #include "plane.hpp"
 #include "light.hpp"
+#include "cilinder.hpp"
 #include <memory>
 using namespace std;
 class Scene {
