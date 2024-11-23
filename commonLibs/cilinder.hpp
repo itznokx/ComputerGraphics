@@ -1,21 +1,9 @@
+#pragma once
 #include "objects.hpp"
 #include "matrix.hpp"
+#include "circle.hpp"
 using namespace std;
-class CirclePlane{
-	Vec3 center;
-	Vec3 normal;
-	float radius;
-	Vec4 colorAmb;
-	Vec4 colorDif;
-	Vec4 colorEsp;
-	float m;
-	CirclePlane(Vec3 _center,Vec3 direction,float _radius) : 	center(_center), 
-																normal(direction), 
-																radius(_radius)
-	{}
-};
-
-class Cilinder : public Object{
+class Cilinder{
 	float h;
 	float radius;
 	Vec3 direction;
@@ -32,8 +20,9 @@ class Cilinder : public Object{
 			    																			colorEsp(color),
 			    																			m(_m)
     {
-    	bi = CirclePlane(baseInferior,(-1.0f*normalize(_direction)),_r);
-    	bs = CirclePlane(baseInferior+_direction*_h,normalize(direction),_r)
+    	Vec3 dc = normalize(_direction);
+    	this->bi = CirclePlane(baseInferior,-dc,_r);
+    	this->bs = CirclePlane(baseInferior+dc*_h,dc,_r);
     }
 
     Cilinder(Vec3 baseInferior,Vec3 baseSuperior,float _r,Vec4 color,float _m) : 	radius(_r),
@@ -42,8 +31,8 @@ class Cilinder : public Object{
 			    																	colorEsp(color),
 			    																	m(_m)
     {
-    	direction = baseSuperior-baseInferior;
-    	float h = direction.lenght();
-    	direction = normalize(direction);
+    	Vec3 dc = baseSuperior-baseInferior;
+    	this->h = dc.lenght();
+    	this->direction = normalize(dc);
     }
 };

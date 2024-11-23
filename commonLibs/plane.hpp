@@ -12,6 +12,7 @@ public:
 	Vec4 colorEsp;
 	string type;
 	float m;
+	Plane () {}
 	Plane (Vec3 nP,Vec3 _normal,Vec4 _color,float _m):anchorPoint(nP),
 											 normal(_normal),
 											 colorAmb(_color),
