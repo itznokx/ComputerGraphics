@@ -4,6 +4,7 @@
 #include "circle.hpp"
 using namespace std;
 class Cilinder : public Object{
+public:
 	float h;
 	float radius;
 	Vec3 direction;

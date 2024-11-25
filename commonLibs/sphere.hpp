@@ -50,7 +50,7 @@ float Sphere::intersects(Ray* ray){
 	}
 }
 Vec4 Sphere::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
-		Vec3 pI = ray->at(ti);
+		Vec3 pI = ray->at(ti*coefError);
 		Vec4 iAmb = (ats(amb->intensity,this->colorAmb));
 		for (Object *obj : objs){
 			Ray* rayAux = new Ray(pI,lp->pF-pI);
