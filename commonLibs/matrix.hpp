@@ -59,7 +59,6 @@ Matrix3 operator+(Matrix3,Matrix3);
 Matrix3 operator-(Matrix3,Matrix3);
 Vec3 operator*(Matrix3,Vec3);
 // Headers implementation
-
 Matrix3 operator+(Matrix3 m1,Matrix3 m2){
 	float z[9];
 	for (int i=0;i<9;i++){
@@ -67,3 +66,16 @@ Matrix3 operator+(Matrix3 m1,Matrix3 m2){
 	}
 	return Matrix3(z);
  }
+Matrix3 operator+(Matrix3 m1,Matrix3 m2){
+	float z[9];
+	for (int i=0;i<9;i++){
+		z[i] = m1.x[i]-m2.x[i];
+	}
+	return Matrix3(z);
+}
+Vec3 operator*(Matrix3 m,Vec3 v){
+	float x = m.x[0]*v.x + m.x[1]*v.y + m.x[2]*v.z;
+	float y = m.x[3]*v.x + m.x[4]*v.y + m.x[5]*v.z;
+	float z = m.x[6]*v.x + m.x[7]*v.y + m.x[8]*v.z;
+	return Vec3(x,y,z);
+}
