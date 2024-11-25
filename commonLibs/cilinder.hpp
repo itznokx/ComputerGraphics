@@ -17,16 +17,16 @@ public:
 	CirclePlane bi,bs;
     Cilinder(Vec3 baseInferior,float _h,float _r,Vec3 _direction,Vec4 color,float _m) : 	h(_h),
 			    																			radius(_r),
-			    																			cb(baseInferior),
 			    																			direction(_direction),
+			    																			cb(baseInferior),
 			    																			colorAmb(color),
 			    																			colorDif(color),
 			    																			colorEsp(color),
 			    																			m(_m)
     {
     	Vec3 dc = normalize(_direction);
-    	this->bi = CirclePlane(baseInferior,-dc,_r);
     	this->ct = baseInferior+dc*_h;
+    	this->bi = CirclePlane(baseInferior,-dc,_r);
     	this->bs = CirclePlane(baseInferior+dc*_h,dc,_r);
     }
 
@@ -44,8 +44,9 @@ public:
     Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs);
 
 };
+// TODO
 float Cilinder::intersects (Ray* ray){
-	Vec3 oc = ray->origin - this->cb;
+	return -1;
 }
 Vec4 Cilinder::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
 	Vec3 pI = ray->at(ti);

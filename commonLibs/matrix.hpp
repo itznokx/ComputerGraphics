@@ -29,8 +29,9 @@ public:
 		x[7] = (x7);
 		x[8] = (x8);
 	}
-	Matrix3(float z[]){0;
-		for (int i = 0; i < sizeof(z);i++){
+	Matrix3(float z[]){
+		int size = sizeof(z)/sizeof(float);
+		for (int i = 0; i < size;i++){
 			x[i] = z[i];
 		}
 	}
@@ -53,3 +54,16 @@ public:
 				<< "| " << x[6] << " , " << x[7] << " , " << x[8] << " |" << "\n";
 	}
 } ;
+// Header operators
+Matrix3 operator+(Matrix3,Matrix3);
+Matrix3 operator-(Matrix3,Matrix3);
+Vec3 operator*(Matrix3,Vec3);
+// Headers implementation
+
+Matrix3 operator+(Matrix3 m1,Matrix3 m2){
+	float z[9];
+	for (int i=0;i<9;i++){
+		z[i] = m1.x[i]+m2.x[i];
+	}
+	return Matrix3(z);
+ }
