@@ -65,8 +65,8 @@ Matrix3 operator+(Matrix3 m1,Matrix3 m2){
 		z[i] = m1.x[i]+m2.x[i];
 	}
 	return Matrix3(z);
- }
-Matrix3 operator+(Matrix3 m1,Matrix3 m2){
+}
+Matrix3 operator-(Matrix3 m1,Matrix3 m2){
 	float z[9];
 	for (int i=0;i<9;i++){
 		z[i] = m1.x[i]-m2.x[i];
