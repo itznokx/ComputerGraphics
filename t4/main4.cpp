@@ -22,9 +22,12 @@ int main (void){
 					 Vec4(0.3f,0.3f,0.7f,1.0f),1.0f);
 	cena.setAmbientLight(Vec4(0.3f, 0.3f, 0.3f,1.0f));
 	cena.insertObj(&s1);
-	//cena.insertObj(&c1);
+	cena.insertObj(&c1);
 	cena.insertObj(&p1);
 	cena.insertObj(&p2);
+	Matrix3 aux;
+	aux.makeIdentity();
+	aux.print();
 	WindowSDL janela = WindowSDL(500,500);
 	uint32_t* matrix = colorMatrix(cena,60.0f,60.0f,
 								500,500,dJanela);
