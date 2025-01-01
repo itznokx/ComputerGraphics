@@ -44,7 +44,6 @@ public:
     Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs);
 
 };
-// TODO
 float Cilinder::intersects (Ray* ray){
 	return -1;
 }
