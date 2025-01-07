@@ -45,9 +45,18 @@ public:
 
 };
 float Cilinder::intersects (Ray* ray){
-	return -1;
+	Vec3 v = (ray->origin - this->cb) - (dot((ray->origin-this->cb),this->direction))*this->direction;
+	Vec3 w = ray->dr - (dot(ray->dr,this->direction))*this->direction;
+	float a = dot(w,w);
+	float b = dot(v,w);
+	float c = dot(v,v)-(this->radius*this->radius);
+	float delta = b*b - 4*a*c;
+	float root =(delta<0)?-1:(-b-sqrt(delta))/(2.0f*a);
+	return root;
 }
 Vec4 Cilinder::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
+	Vec4 finalColor = Vec4(1.0f,1.0f,0.0f,1.0f);
+	/*
 	Vec3 pI = ray->at(ti);
 		Vec4 iAmb = (ats(amb->intensity,this->colorAmb));
 		for (Object *obj : objs){
@@ -99,5 +108,6 @@ Vec4 Cilinder::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*
 							min(finalColor.z,1.0f),
 							1.0f
 						);
+		*/
 		return finalColor;
 }

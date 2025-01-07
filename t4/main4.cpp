@@ -1,4 +1,4 @@
-#include "../commonLibs/window.hpp"
+ #include "../commonLibs/window.hpp"
 #include "../commonLibs/scene.hpp"
 #include <cmath>
 int main (void){
@@ -9,11 +9,13 @@ int main (void){
 	Light l1 = Light(Vec3(0.0f,20.0f,-30.0f),Vec4(0.7f, 0.7f, 0.7f,1.0f));
 	cena.insertLight(&l1);
 	Sphere s1 = Sphere(Vec3(0.0f,0.0f,-100.0f),rSphere,Vec4(0.7f, 0.2f, 0.2f,1.0f),9.0f);
-	Cilinder c1 = Cilinder(	Vec3(0.0f,0.0f,-100.0f),
-							3*rSphere,rSphere/3,
-							Vec3(cilinderX,cilinderX,cilinderX),
+	Cilinder c1 = Cilinder (Vec3(0.0f,0.0f,-100.0f),
+							rSphere*3,
+							rSphere/3,
+							Vec3(0.0f,1.0f,0.0f),
 							Vec4 (0.2f,0.3f,0.8f,1.0f),
-							1.0f);
+							1.0f)
+							;
 	Plane p1 = Plane(Vec3(0.0f,-rSphere,0.0f),
 					 Vec3(0.0f,1.0f,0.0f),
 					 Vec4(0.7f,0.7f,0.2f,1.0f),1.0f);
@@ -21,7 +23,6 @@ int main (void){
 					 Vec3(0.0f,0.0f,1.0f),
 					 Vec4(0.3f,0.3f,0.7f,1.0f),1.0f);
 	cena.setAmbientLight(Vec4(0.3f, 0.3f, 0.3f,1.0f));
-	cena.insertObj(&s1);
 	cena.insertObj(&c1);
 	cena.insertObj(&p1);
 	cena.insertObj(&p2);

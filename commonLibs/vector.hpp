@@ -80,6 +80,7 @@ Vec4 ats (Vec4,Vec4);
 Vec4 clamp(Vec4,Vec4,Vec4);
 Vec4 operator/(Vec4,float n);
 Vec4 toAbs(Vec4);
+Vec4 cross(Vec4,Vec4);
 // Vec3 Implementation 
 float dot (Vec3 a,Vec3 b){
 	return (a.x*b.x+a.y*b.y+a.z*b.z);
