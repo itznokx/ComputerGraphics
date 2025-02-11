@@ -10,13 +10,12 @@ int main (void){
 	cena.insertLight(&l1);
 	Sphere s1 = Sphere(Vec3(-30.0f,0.0f,-100.0f),rSphere,Vec4(0.7f, 0.2f, 0.2f,1.0f),9.0f);
 	Sphere s2 = Sphere(Vec3(30.0f,0.0f,-100.0f),rSphere,Vec4(0.7f, 0.0f, 0.7f,1.0f),9.0f);
-	Cilinder c1 = Cilinder (Vec3(0.0f,0.0f,-40.0f),
-							rSphere,
+	Cilinder c1 = Cilinder (Vec3(0.0f,-20.0f,-50.0f),
+							20.0f,
 							rSphere/3,
 							Vec3(0.0f,1.0f,0.0f),
 							Vec4 (0.2f,0.3f,0.8f,1.0f),
-							1.0f)
-							;
+							1.0f);
 
 	Plane p1 = Plane(Vec3(0.0f,-rSphere,0.0f),
 					 Vec3(0.0f,1.0f,0.0f),
@@ -30,9 +29,6 @@ int main (void){
 	cena.insertObj(&c1);
 	cena.insertObj(&p1);
 	cena.insertObj(&p2);
-	Matrix3 aux;
-	aux.makeIdentity();
-	aux.print();
 	WindowSDL janela = WindowSDL(500,500);
 	uint32_t* matrix = colorMatrix(cena,60.0f,60.0f,
 								500,500,dJanela);

@@ -17,14 +17,19 @@ public:
 	Vec4 colorEsp;
 	float m;
 	CirclePlane bi,bs;
-    Cilinder(Vec3 baseInferior,float _h,float _r,Vec3 _direction,Vec4 color,float _m) : 	h(_h),
+	bool cbActive,ctActive;
+    Cilinder(Vec3 baseInferior,float _h,float _r,Vec3 _direction,Vec4 color,float _m,
+    		bool _cbActive = true,bool _ctActive = true) 
+    																						: 	h(_h),
 			    																			radius(_r),
 			    																			direction(_direction),
 			    																			cb(baseInferior),
 			    																			colorAmb(color),
 			    																			colorDif(color),
 			    																			colorEsp(color),
-			    																			m(_m)
+			    																			m(_m),
+			    																			cbActive(_cbActive),
+			    																			ctActive(_ctActive)
     {
     	Vec3 dc = normalize(_direction);
     	this->direction = dc;
@@ -33,31 +38,37 @@ public:
     	this->bs = CirclePlane(baseInferior+dc*_h,dc,_r);
     }
 
-    Cilinder(Vec3 baseInferior,Vec3 baseSuperior,float _r,Vec4 color,float _m) : 	radius(_r),
+    Cilinder(Vec3 baseInferior,Vec3 baseSuperior,float _r,Vec4 color,float _m,bool _cbActive = true,bool _ctActive = true) : 	
+    																				radius(_r),
 			    																	colorAmb(color),
 			    																	colorDif(color),
 			    																	colorEsp(color),
-			    																	m(_m)
+			    																	m(_m),
+			    																	cbActive(_cbActive),
+			    																	ctActive(_ctActive)
     {
     	Vec3 dc = baseSuperior-baseInferior;
     	this->h = dc.lenght();
     	this->direction = normalize(dc);
     }
-    float intersects(Ray* ray);
+    float intersects(Ray*);
+    float intersectsCB(Ray*);
+    float intersectsCT(Ray*);
     Vec4 returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs);
     bool validateIntersects(Ray*,float);
+
 };
 bool Cilinder::validateIntersects(Ray* ray,float ti){
 	Vec3 pi = ray->at(ti);
 	Vec3 vb = this->cb-pi;
 	Vec3 va = this->ct-pi;
 	float alfa = dot(vb,this->direction);
-	float beta = dot(vb,-this->direction);
+	float beta = dot(vb,this->direction);
 	if (alfa < 0 && beta < 0){
 		return false;
 	}
 	else {
-		if((alfa <= this->h) && (beta <= this->h)){
+		if((alfa <= this->h)){
 			return true;
 		}
 		else{
@@ -84,6 +95,7 @@ float Cilinder::intersects (Ray* ray){
 }
 Vec4 Cilinder::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
 	//Vec4 finalColor = Vec4(1.0f,0.0f,0.0f,1.0f);
+	// /*
 	Vec3 pI = ray->at(ti);
 		Vec4 iAmb = (ats(amb->intensity,this->colorAmb));
 		for (Object *obj : objs){
@@ -135,5 +147,6 @@ Vec4 Cilinder::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*
 							min(finalColor.z,1.0f),
 							1.0f
 						);
+		// */
 		return finalColor;
 }
