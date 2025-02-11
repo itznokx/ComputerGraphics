@@ -8,7 +8,9 @@ public:
 	float h;
 	float radius;
 	Vec3 direction;
+	// Base Center
 	Vec3 cb;
+	// Top-base center
 	Vec3 ct;
 	Vec4 colorAmb;
 	Vec4 colorDif;
@@ -25,6 +27,7 @@ public:
 			    																			m(_m)
     {
     	Vec3 dc = normalize(_direction);
+    	this->direction = dc;
     	this->ct = baseInferior+dc*_h;
     	this->bi = CirclePlane(baseInferior,-dc,_r);
     	this->bs = CirclePlane(baseInferior+dc*_h,dc,_r);
@@ -45,17 +48,18 @@ public:
 
 };
 float Cilinder::intersects (Ray* ray){
-	Vec3 v = (ray->origin - this->cb) - (dot((ray->origin-this->cb),this->direction))*this->direction;
-	Vec3 w = ray->dr - (dot(ray->dr,this->direction))*this->direction;
-	float a = dot(w,w);
-	float b = dot(v,w);
-	float c = dot(v,v)-(this->radius*this->radius);
+	Vec3 v = ray->origin - this->cb;
+	Vec3 D_cross_A = cross(ray->dr,this->direction);
+	Vec3 V_cross_A = cross(v,this->direction);
+	float a = dot(D_cross_A);
+    float b = 2.0 * dot(V_cross_A,D_cross_A);
+    float c = dot(V_cross_A) - this->radius * this->radius;
 	float delta = b*b - 4*a*c;
 	float root =(delta<0)?-1:(-b-sqrt(delta))/(2.0f*a);
 	return root;
 }
 Vec4 Cilinder::returnColor(float ti,Ray* ray,Light* lp,Light* amb,vector<Object*> objs){
-	Vec4 finalColor = Vec4(1.0f,1.0f,0.0f,1.0f);
+	Vec4 finalColor = Vec4(1.0f,0.0f,0.0f,1.0f);
 	/*
 	Vec3 pI = ray->at(ti);
 		Vec4 iAmb = (ats(amb->intensity,this->colorAmb));

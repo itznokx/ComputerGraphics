@@ -9,7 +9,7 @@ int main (void){
 	Light l1 = Light(Vec3(0.0f,20.0f,-30.0f),Vec4(0.7f, 0.7f, 0.7f,1.0f));
 	cena.insertLight(&l1);
 	Sphere s1 = Sphere(Vec3(0.0f,0.0f,-100.0f),rSphere,Vec4(0.7f, 0.2f, 0.2f,1.0f),9.0f);
-	Cilinder c1 = Cilinder (Vec3(0.0f,0.0f,-100.0f),
+	Cilinder c1 = Cilinder (Vec3(0.0f,0.0f,-50.0f),
 							rSphere*3,
 							rSphere/3,
 							Vec3(0.0f,1.0f,0.0f),
