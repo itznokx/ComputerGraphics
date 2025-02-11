@@ -30,6 +30,18 @@ public:
 	Vec3 operator-() const{
 		return Vec3((-1.0f)*this->x,(-1.0f)*this->y,(-1.0f)*this->z);
 	}
+	float dot (Vec3 b) const{
+		return (this->x*b.x+this->y*b.y+this->z*b.z);
+	}
+	float dot () const{
+		return (this->x*this->x+this->y*this->y+this->z*this->z);
+	}
+	Vec3 cross (Vec3 b){
+		float x = (this->y*b.z - this->z*b.y);
+		float y = (this->z*b.x - this->x*b.z);
+		float z = (this->x*b.y - this->y*b.x);
+		return Vec3(x,y,z);
+	}
 };
 class Vec4 {
 	public:
@@ -54,6 +66,7 @@ class Vec4 {
 	float lenght() const {
 		return sqrt(lenght_squared());
 	}
+	
 };
 //Vec3 operations declaration
 float dot(Vec3 ,Vec3 ); //ok
