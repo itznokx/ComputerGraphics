@@ -6,12 +6,12 @@ int main (void){
 	float dJanela = 10.0f;
 	float cilinderX = float(-1/sqrt(3));
 	Scene cena;
-	Light l1 = Light(Vec3(0.0f,40.0f,-20.0f),Vec4(0.9f, 0.9f, 0.7f,1.0f));
+	Light l1 = Light(Vec3(0.0f,40.0f,-20.0f),Vec4(0.7f, 0.7f, 0.7f,1.0f));
 	cena.insertLight(&l1);
 	Sphere s1 = Sphere(Vec3(-30.0f,0.0f,-100.0f),rSphere,Vec4(0.7f, 0.2f, 0.2f,1.0f),9.0f);
 	Sphere s2 = Sphere(Vec3(30.0f,0.0f,-100.0f),rSphere,Vec4(0.7f, 0.0f, 0.7f,1.0f),9.0f);
-	Cilinder c1 = Cilinder (Vec3(0.0f,0.0f,-50.0f),
-							rSphere*3,
+	Cilinder c1 = Cilinder (Vec3(0.0f,0.0f,-40.0f),
+							rSphere,
 							rSphere/3,
 							Vec3(0.0f,1.0f,0.0f),
 							Vec4 (0.2f,0.3f,0.8f,1.0f),
