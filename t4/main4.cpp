@@ -6,7 +6,7 @@ int main (void){
 	float dJanela = 10.0f;
 	float cilinderX = float(-1/sqrt(3));
 	Scene cena;
-	Light l1 = Light(Vec3(0.0f,20.0f,-30.0f),Vec4(0.7f, 0.7f, 0.7f,1.0f));
+	Light l1 = Light(Vec3(0.0f,40.0f,-20.0f),Vec4(0.9f, 0.9f, 0.7f,1.0f));
 	cena.insertLight(&l1);
 	Sphere s1 = Sphere(Vec3(-30.0f,0.0f,-100.0f),rSphere,Vec4(0.7f, 0.2f, 0.2f,1.0f),9.0f);
 	Sphere s2 = Sphere(Vec3(30.0f,0.0f,-100.0f),rSphere,Vec4(0.7f, 0.0f, 0.7f,1.0f),9.0f);
