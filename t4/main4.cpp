@@ -1,4 +1,4 @@
- #include "../commonLibs/window.hpp"
+#include "../commonLibs/window.hpp"
 #include "../commonLibs/scene.hpp"
 #include <cmath>
 int main (void){
