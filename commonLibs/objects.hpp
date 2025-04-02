@@ -10,7 +10,7 @@ class Object {
 public:
 	Vec4 color;
 	string type;
-	void setColor(int r,int g,int b,int a){
+	virtual void setColor(int r,int g,int b,int a){
 		this->color = Vec4(r,g,b,a);
 	}
 	virtual float intersects(Ray* ray);

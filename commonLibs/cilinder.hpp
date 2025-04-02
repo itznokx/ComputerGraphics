@@ -59,11 +59,11 @@ public:
 
 };
 bool Cilinder::validateIntersects(Ray* ray,float ti){
-	Vec3 pi = ray->at(ti);
+	Vec3 pi = ray->at(ti*0.99);
 	Vec3 vb = this->cb-pi;
 	Vec3 va = this->ct-pi;
 	float alfa = dot(vb,this->direction);
-	float beta = dot(vb,this->direction);
+	float beta = dot(va,this->direction);
 	if (alfa < 0 && beta < 0){
 		return false;
 	}

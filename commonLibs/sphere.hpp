@@ -34,13 +34,13 @@ public:
 float Sphere::intersects(Ray* ray){
 	Vec3 oc = this->center - ray->origin;
 	//cout << ray->dr << endl;
-	auto a = dot((ray->dr));
+	float a = dot((ray->dr));
 	//cout << a << endl;
-	auto b = (-2.0f)*dot(ray->dr,oc);
+	float b = (-2.0f)*dot(ray->dr,oc);
 	//cout << b << endl;
-	auto c = dot(oc,oc) - (this->radius*this->radius);
+	float c = dot(oc,oc) - (this->radius*this->radius);
 	//cout << c << endl;
-	auto delta = (b*b)-4*a*c;
+	float delta = (b*b)-4*a*c;
 	
 	if (delta < 0)
 		return -1.0f;
