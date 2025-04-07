@@ -5,6 +5,7 @@
 #include "plane.hpp"
 #include "light.hpp"
 #include "cilinder.hpp"
+#include "cone.hpp"
 #include <memory>
 using namespace std;
 class Scene {
